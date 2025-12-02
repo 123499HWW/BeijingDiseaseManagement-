@@ -1,0 +1,15 @@
+{
+  "name": "excel-to-mock-tool",
+  "version": "1.0.0",
+  "description": "Excel转Mock数据工具",
+  "main": "excel-to-mock.js",
+  "scripts": {
+    "convert": "node excel-to-mock.js"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0"
+  }
+}

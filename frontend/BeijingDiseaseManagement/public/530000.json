@@ -1,0 +1,262 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "adcode": 530100, "name": "昆明市" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [102.712251, 25.040609],
+            [102.8, 25.1],
+            [102.9, 25.2],
+            [102.7, 25.3],
+            [102.6, 25.2],
+            [102.712251, 25.040609]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "adcode": 530300, "name": "曲靖市" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [103.8, 25.5],
+            [103.9, 25.6],
+            [103.7, 25.7],
+            [103.6, 25.6],
+            [103.8, 25.5]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "adcode": 530400, "name": "玉溪市" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [102.5, 24.3],
+            [102.6, 24.4],
+            [102.7, 24.3],
+            [102.6, 24.2],
+            [102.5, 24.3]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "adcode": 530500, "name": "保山市" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [99.2, 25.1],
+            [99.3, 25.2],
+            [99.4, 25.1],
+            [99.3, 25.0],
+            [99.2, 25.1]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "adcode": 530600, "name": "昭通市" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [103.7, 27.3],
+            [103.8, 27.4],
+            [103.6, 27.5],
+            [103.5, 27.4],
+            [103.7, 27.3]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "adcode": 530700, "name": "丽江市" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [100.2, 26.9],
+            [100.3, 27.0],
+            [100.1, 27.1],
+            [100.0, 27.0],
+            [100.2, 26.9]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "adcode": 530800, "name": "普洱市" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [100.9, 22.8],
+            [101.0, 22.9],
+            [100.8, 23.0],
+            [100.7, 22.9],
+            [100.9, 22.8]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "adcode": 530900, "name": "临沧市" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [100.1, 23.8],
+            [100.2, 23.9],
+            [100.0, 24.0],
+            [99.9, 23.9],
+            [100.1, 23.8]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "adcode": 532300, "name": "楚雄彝族自治州" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [101.5, 25.0],
+            [101.6, 25.1],
+            [101.4, 25.2],
+            [101.3, 25.1],
+            [101.5, 25.0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "adcode": 532500, "name": "红河哈尼族彝族自治州" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [103.4, 23.3],
+            [103.5, 23.4],
+            [103.3, 23.5],
+            [103.2, 23.4],
+            [103.4, 23.3]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "adcode": 532600, "name": "文山壮族苗族自治州" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [104.2, 23.3],
+            [104.3, 23.4],
+            [104.1, 23.5],
+            [104.0, 23.4],
+            [104.2, 23.3]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "adcode": 532800, "name": "西双版纳傣族自治州" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [100.8, 22.0],
+            [100.9, 22.1],
+            [100.7, 22.2],
+            [100.6, 22.1],
+            [100.8, 22.0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "adcode": 532900, "name": "大理白族自治州" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [100.2, 25.6],
+            [100.3, 25.7],
+            [100.1, 25.8],
+            [100.0, 25.7],
+            [100.2, 25.6]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "adcode": 533100, "name": "德宏傣族景颇族自治州" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [98.6, 24.4],
+            [98.7, 24.5],
+            [98.5, 24.6],
+            [98.4, 24.5],
+            [98.6, 24.4]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "adcode": 533300, "name": "怒江傈僳族自治州" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [98.8, 26.8],
+            [98.9, 26.9],
+            [98.7, 27.0],
+            [98.6, 26.9],
+            [98.8, 26.8]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "adcode": 533400, "name": "迪庆藏族自治州" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [99.7, 27.7],
+            [99.8, 27.8],
+            [99.6, 27.9],
+            [99.5, 27.8],
+            [99.7, 27.7]
+          ]
+        ]
+      }
+    }
+  ]
+}

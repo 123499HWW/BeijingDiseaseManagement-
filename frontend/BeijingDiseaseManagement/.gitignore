@@ -1,0 +1,38 @@
+# 依赖目录
+node_modules/
+
+# 构建产物
+dist/
+dist-ssr/
+
+# 本地环境变量
+.env
+.env.*
+
+# 本地配置
+*.local
+
+# 日志文件
+*.log
+
+# Mac 系统文件
+.DS_Store
+
+# VSCode 配置（如有）
+.vscode/
+
+# WebStorm/IDEA 配置（如有）
+.idea/
+
+# 其他常见编辑器配置
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 其他可选忽略项
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

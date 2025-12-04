@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxj.common.mapper.PsiAssessmentResultMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.hxj.common.entity.PsiAssessmentResult">
+        <id column="psi_id" property="psiId" />
+        
+        <!-- 人口统计学因素评分 -->
+        <result column="gender_score" property="genderScore" />
+        <result column="age_score" property="ageScore" />
+        
+        <!-- 基础疾病评分 -->
+        <result column="tumor_score" property="tumorScore" />
+        <result column="liver_disease_score" property="liverDiseaseScore" />
+        <result column="heart_failure_score" property="heartFailureScore" />
+        <result column="cerebrovascular_disease_score" property="cerebrovascularDiseaseScore" />
+        <result column="kidney_disease_score" property="kidneyDiseaseScore" />
+        
+        <!-- 体格检查评分 -->
+        <result column="mental_status_change_score" property="mentalStatusChangeScore" />
+        <result column="heart_rate_score" property="heartRateScore" />
+        <result column="respiratory_rate_score" property="respiratoryRateScore" />
+        <result column="systolic_bp_score" property="systolicBpScore" />
+        <result column="temperature_score" property="temperatureScore" />
+        
+        <!-- 实验室检查评分 -->
+        <result column="arterial_ph_score" property="arterialPhScore" />
+        <result column="blood_urea_nitrogen_score" property="bloodUreaNitrogenScore" />
+        <result column="serum_sodium_score" property="serumSodiumScore" />
+        <result column="blood_glucose_score" property="bloodGlucoseScore" />
+        <result column="hematocrit_score" property="hematocritScore" />
+        <result column="pao2_score" property="pao2Score" />
+        
+        <!-- 影像学检查评分 -->
+        <result column="pleural_effusion_score" property="pleuralEffusionScore" />
+        
+        <!-- 评分结果 -->
+        <result column="total_score" property="totalScore" />
+        <result column="risk_class" property="riskClass" />
+        <result column="risk_description" property="riskDescription" />
+        <result column="recommended_treatment" property="recommendedTreatment" />
+        <result column="mortality_rate" property="mortalityRate" />
+        
+        <!-- 评估详情 -->
+        <result column="assessment_time" property="assessmentTime" />
+        <result column="assessment_method" property="assessmentMethod" />
+        <result column="assessment_notes" property="assessmentNotes" />
+        <result column="data_source" property="dataSource" />
+        
+        <!-- 通用字段 -->
+        <result column="created_at" property="createdAt" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        psi_id,
+        gender_score, age_score,
+        tumor_score, liver_disease_score, heart_failure_score, 
+        cerebrovascular_disease_score, kidney_disease_score,
+        mental_status_change_score, heart_rate_score, respiratory_rate_score, 
+        systolic_bp_score, temperature_score,
+        arterial_ph_score, blood_urea_nitrogen_score, serum_sodium_score, 
+        blood_glucose_score, hematocrit_score, pao2_score,
+        pleural_effusion_score,
+        total_score, risk_class, risk_description, recommended_treatment, mortality_rate,
+        assessment_time, assessment_method, assessment_notes, data_source,
+        created_at, created_by, updated_at, updated_by, is_deleted
+    </sql>
+
+    <!-- 根据PSI评分ID查询评分结果 -->
+    <select id="selectByPsiId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM psi_assessment_result
+        WHERE psi_id = #{psiId}
+          AND is_deleted = 0
+    </select>
+
+    <!-- 根据PSI评分ID列表查询评分结果 -->
+    <select id="selectByPsiIds" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM psi_assessment_result
+        WHERE psi_id IN
+        <foreach collection="psiIds" item="psiId" open="(" separator="," close=")">
+            #{psiId}
+        </foreach>
+          AND is_deleted = 0
+        ORDER BY assessment_time DESC
+    </select>
+
+    <!-- 根据风险等级统计患者数量 -->
+    <select id="selectCountByRiskClass" resultMap="BaseResultMap">
+        SELECT 
+            risk_class,
+            risk_description,
+            COUNT(*) as patient_count,
+            AVG(total_score) as avg_score,
+            AVG(mortality_rate) as avg_mortality_rate
+        FROM psi_assessment_result
+        WHERE is_deleted = 0
+        <if test="createdBy != null and createdBy != ''">
+            AND created_by = #{createdBy}
+        </if>
+        GROUP BY risk_class, risk_description
+        ORDER BY risk_class
+    </select>
+
+    <!-- 批量插入PSI评分结果 -->
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO psi_assessment_result (
+            psi_id,
+            gender_score, age_score,
+            tumor_score, liver_disease_score, heart_failure_score, 
+            cerebrovascular_disease_score, kidney_disease_score,
+            mental_status_change_score, heart_rate_score, respiratory_rate_score, 
+            systolic_bp_score, temperature_score,
+            arterial_ph_score, blood_urea_nitrogen_score, serum_sodium_score, 
+            blood_glucose_score, hematocrit_score, pao2_score,
+            pleural_effusion_score,
+            total_score, risk_class, risk_description, recommended_treatment, mortality_rate,
+            assessment_time, assessment_method, assessment_notes, data_source,
+            created_at, created_by, updated_at, updated_by, is_deleted
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.psiId},
+                #{item.genderScore}, #{item.ageScore},
+                #{item.tumorScore}, #{item.liverDiseaseScore}, #{item.heartFailureScore},
+                #{item.cerebrovascularDiseaseScore}, #{item.kidneyDiseaseScore},
+                #{item.mentalStatusChangeScore}, #{item.heartRateScore}, #{item.respiratoryRateScore},
+                #{item.systolicBpScore}, #{item.temperatureScore},
+                #{item.arterialPhScore}, #{item.bloodUreaNitrogenScore}, #{item.serumSodiumScore},
+                #{item.bloodGlucoseScore}, #{item.hematocritScore}, #{item.pao2Score},
+                #{item.pleuralEffusionScore},
+                #{item.totalScore}, #{item.riskClass}, #{item.riskDescription}, 
+                #{item.recommendedTreatment}, #{item.mortalityRate},
+                #{item.assessmentTime}, #{item.assessmentMethod}, #{item.assessmentNotes}, #{item.dataSource},
+                #{item.createdAt}, #{item.createdBy}, #{item.updatedAt}, #{item.updatedBy}, #{item.isDeleted}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

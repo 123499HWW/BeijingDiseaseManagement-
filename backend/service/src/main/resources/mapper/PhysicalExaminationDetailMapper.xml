@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxj.common.mapper.PhysicalExaminationDetailMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.hxj.common.entity.PhysicalExaminationDetail">
+        <id column="detail_id" property="detailId" />
+        <result column="general_condition" property="generalCondition" />
+        <result column="temperature" property="temperature" />
+        <result column="pulse" property="pulse" />
+        <result column="respiration" property="respiration" />
+        <result column="systolic_bp" property="systolicBp" />
+        <result column="diastolic_bp" property="diastolicBp" />
+        <result column="spo2" property="spo2" />
+        <result column="other_examination" property="otherExamination" />
+        <result column="additional_examination" property="additionalExamination" />
+        <result column="ct_examination_method" property="ctExaminationMethod" />
+        <result column="ct_imaging_findings" property="ctImagingFindings" />
+        <result column="ct_diagnosis_opinion" property="ctDiagnosisOpinion" />
+        <result column="created_at" property="createdAt" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        ped.detail_id, ped.general_condition, ped.temperature, ped.pulse, ped.respiration, 
+        ped.systolic_bp, ped.diastolic_bp, ped.spo2, ped.other_examination, ped.additional_examination,
+        ped.ct_examination_method, ped.ct_imaging_findings, ped.ct_diagnosis_opinion,
+        ped.created_at, ped.created_by, ped.updated_at, ped.updated_by, ped.is_deleted
+    </sql>
+
+    <!-- 根据患者ID查询体检详细信息 -->
+    <select id="selectByPatientId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM physical_examination_detail ped
+        INNER JOIN patient_examination_relation per ON ped.detail_id = per.detail_id
+        WHERE per.patient_id = #{patientId}
+          AND per.is_deleted = 0
+          AND ped.is_deleted = 0
+        ORDER BY ped.created_at DESC
+    </select>
+
+</mapper>

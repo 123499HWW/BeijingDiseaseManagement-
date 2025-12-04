@@ -1,0 +1,36 @@
+package com.hxj.common.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.hxj.common.entity.CpisPatientRelation;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
+
+/**
+ * CPIS评分与患者关联Mapper接口
+ */
+@Mapper
+public interface CpisPatientRelationMapper extends BaseMapper<CpisPatientRelation> {
+
+    /**
+     * 根据患者ID查询CPIS评分ID列表
+     */
+    @Select("SELECT cpis_id FROM cpis_patient_relation WHERE patient_id = #{patientId} AND is_deleted = 0 ORDER BY created_at DESC")
+    List<Long> selectCpisIdsByPatientId(@Param("patientId") Long patientId);
+
+    /**
+     * 批量插入关联关系
+     */
+    @Insert("<script>" +
+            "INSERT INTO cpis_patient_relation (cpis_id, patient_id, patient_number, relation_type, relation_status, " +
+            "created_by, updated_by, created_at, updated_at, is_deleted) VALUES " +
+            "<foreach collection='list' item='item' separator=','>" +
+            "(#{item.cpisId}, #{item.patientId}, #{item.patientNumber}, #{item.relationType}, #{item.relationStatus}, " +
+            "#{item.createdBy}, #{item.updatedBy}, #{item.createdAt}, #{item.updatedAt}, #{item.isDeleted})" +
+            "</foreach>" +
+            "</script>")
+    void batchInsert(@Param("list") List<CpisPatientRelation> relations);
+}

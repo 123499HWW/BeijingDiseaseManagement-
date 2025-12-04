@@ -1,0 +1,64 @@
+{
+  "// 测试用例1": "查询所有患者数据（无条件）",
+  "test1": {
+    "pageNum": 1,
+    "pageSize": 10
+  },
+  
+  "// 测试用例2": "查询高风险患者",
+  "test2": {
+    "pageNum": 1,
+    "pageSize": 10,
+    "curbRiskLevel": "高风险"
+  },
+  
+  "// 测试用例3": "查询老年男性患者",
+  "test3": {
+    "pageNum": 1,
+    "pageSize": 10,
+    "gender": "男",
+    "minAge": 60,
+    "maxAge": 80
+  },
+  
+  "// 测试用例4": "查询COVID-19重型患者",
+  "test4": {
+    "pageNum": 1,
+    "pageSize": 10,
+    "covid19IsSevereType": true
+  },
+  
+  "// 测试用例5": "查询重症肺炎患者",
+  "test5": {
+    "pageNum": 1,
+    "pageSize": 10,
+    "isSeverePneumonia": true
+  },
+  
+  "// 测试用例6": "组合查询条件",
+  "test6": {
+    "pageNum": 1,
+    "pageSize": 10,
+    "gender": "男",
+    "minAge": 50,
+    "curbRiskLevel": "高风险",
+    "covid19IsSevereType": true,
+    "isSeverePneumonia": true
+  },
+  
+  "// 测试用例7": "分数范围查询",
+  "test7": {
+    "pageNum": 1,
+    "pageSize": 10,
+    "minCurbScore": 3,
+    "maxCurbScore": 5,
+    "minSofaScore": 6
+  },
+  
+  "// 注意事项": [
+    "1. 不要发送默认值'string'和0，会被自动过滤",
+    "2. 只发送需要查询的条件，不需要的条件不要发送",
+    "3. 布尔类型字段只有在需要筛选时才发送",
+    "4. 分数字段如果是0，确实需要查询0分时可以使用范围查询"
+  ]
+}

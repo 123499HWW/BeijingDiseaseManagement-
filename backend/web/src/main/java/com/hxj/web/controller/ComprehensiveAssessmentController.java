@@ -2,6 +2,10 @@ package com.hxj.web.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hxj.common.dto.ComprehensiveAssessmentQueryDTO;
+import com.hxj.common.dto.statistics.AgeSegmentStatisticsDTO;
+import com.hxj.common.dto.statistics.DiseaseStatisticsDTO;
+import com.hxj.common.dto.statistics.GenderStatisticsDTO;
+import com.hxj.common.dto.statistics.MonthlyStatisticsDTO;
 import com.hxj.common.result.Result;
 import com.hxj.common.vo.ComprehensiveAssessmentVO;
 import com.hxj.service.ComprehensiveAssessmentService;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -154,6 +159,9 @@ public class ComprehensiveAssessmentController {
         // SOFA严重程度
         options.put("sofaSeverityLevels", Arrays.asList("轻度", "中度", "重度", "极重度"));
         
+        // 呼吸道症候群严重程度
+        options.put("respiratorySyndromeSeverityLevels", Arrays.asList("MILD", "MODERATE", "SEVERE", "CRITICAL"));
+        
         // 分数范围建议
         Map<String, Map<String, Integer>> scoreRanges = new HashMap<>();
         scoreRanges.put("curb", Map.of("min", 0, "max", 5));
@@ -161,6 +169,7 @@ public class ComprehensiveAssessmentController {
         scoreRanges.put("psi", Map.of("min", 0, "max", 400));
         scoreRanges.put("qsofa", Map.of("min", 0, "max", 3));
         scoreRanges.put("sofa", Map.of("min", 0, "max", 24));
+        scoreRanges.put("respiratorySyndrome", Map.of("min", 0, "max", 18));  // 呼吸道症候群评分
         options.put("scoreRanges", scoreRanges);
         
         return Result.success(options);
@@ -203,6 +212,12 @@ public class ComprehensiveAssessmentController {
             return false;
         }
         
+        // 呼吸道症候群分数范围
+        if (queryDTO.getMinRespiratorySyndromeScore() != null && queryDTO.getMaxRespiratorySyndromeScore() != null 
+                && queryDTO.getMinRespiratorySyndromeScore() > queryDTO.getMaxRespiratorySyndromeScore()) {
+            return false;
+        }
+        
         return true;
     }
     
@@ -240,6 +255,9 @@ public class ComprehensiveAssessmentController {
         }
         if ("string".equals(queryDTO.getSofaSeverityLevel()) || "".equals(queryDTO.getSofaSeverityLevel())) {
             queryDTO.setSofaSeverityLevel(null);
+        }
+        if ("string".equals(queryDTO.getRespiratorySyndromeSeverityLevel()) || "".equals(queryDTO.getRespiratorySyndromeSeverityLevel())) {
+            queryDTO.setRespiratorySyndromeSeverityLevel(null);
         }
         
         // 清理数字类型的默认值（0值）
@@ -296,5 +314,295 @@ public class ComprehensiveAssessmentController {
         }
         
         log.info("清理后的查询条件: {}", queryDTO);
+    }
+    
+    /**
+     * 按年龄分段统计综合评估数据
+     * 统计各年龄段患者的评估结果分布情况
+     * 
+     * @return 年龄分段统计结果
+     */
+    @GetMapping("/age-segment-statistics")
+    public Result<List<AgeSegmentStatisticsDTO>> getAgeSegmentStatistics() {
+        log.info("获取年龄分段统计数据");
+        
+        try {
+            long startTime = System.currentTimeMillis();
+            
+            // 调用Service层获取统计数据
+            List<AgeSegmentStatisticsDTO> statistics = comprehensiveAssessmentService.getAgeSegmentStatistics();
+            
+            long endTime = System.currentTimeMillis();
+            long executionTime = endTime - startTime;
+            
+            // 记录统计信息
+            if (statistics != null && !statistics.isEmpty()) {
+                int totalPatients = statistics.stream()
+                    .mapToInt(AgeSegmentStatisticsDTO::getTotalPatients)
+                    .sum();
+                
+                log.info("年龄分段统计完成，总耗时：{}ms，统计患者总数：{}，分段数：{}", 
+                    executionTime, totalPatients, statistics.size());
+                
+                // 如果执行时间过长，记录警告
+                if (executionTime > 5000) {
+                    log.warn("年龄分段统计执行时间超过5秒：{}ms", executionTime);
+                }
+                
+                return Result.success(statistics);
+            } else {
+                log.warn("年龄分段统计结果为空");
+                return Result.error("未找到统计数据");
+            }
+            
+        } catch (Exception e) {
+            log.error("年龄分段统计失败", e);
+            return Result.error("统计失败: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * 按性别分类统计综合评估数据
+     * 统计男性和女性患者的评估结果分布情况
+     * 
+     * @return 性别分类统计结果
+     */
+    @GetMapping("/gender-statistics")
+    public Result<List<GenderStatisticsDTO>> getGenderStatistics() {
+        log.info("获取性别分类统计数据");
+        
+        try {
+            long startTime = System.currentTimeMillis();
+            
+            // 调用Service层获取统计数据
+            List<GenderStatisticsDTO> statistics = comprehensiveAssessmentService.getGenderStatistics();
+            
+            long endTime = System.currentTimeMillis();
+            long executionTime = endTime - startTime;
+            
+            // 记录统计信息
+            if (statistics != null && !statistics.isEmpty()) {
+                int totalMale = 0;
+                int totalFemale = 0;
+                
+                for (GenderStatisticsDTO stat : statistics) {
+                    if ("男".equals(stat.getGender())) {
+                        totalMale = stat.getTotalPatients();
+                    } else if ("女".equals(stat.getGender())) {
+                        totalFemale = stat.getTotalPatients();
+                    }
+                }
+                
+                int totalPatients = totalMale + totalFemale;
+                
+                log.info("性别分类统计完成，总耗时：{}ms，男性：{}人，女性：{}人，总计：{}人", 
+                    executionTime, totalMale, totalFemale, totalPatients);
+                
+                // 如果执行时间过长，记录警告
+                if (executionTime > 5000) {
+                    log.warn("性别分类统计执行时间超过5秒：{}ms", executionTime);
+                }
+                
+                return Result.success(statistics);
+            } else {
+                log.warn("性别分类统计结果为空");
+                return Result.error("未找到统计数据");
+            }
+            
+        } catch (Exception e) {
+            log.error("性别分类统计失败", e);
+            return Result.error("统计失败: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * 按月份统计综合评估数据
+     * 基于患者入院日期(admission_date)统计每月各种疾病的患者分布
+     * 
+     * @return 月度统计结果
+     */
+    @GetMapping("/monthly-statistics")
+    public Result<List<MonthlyStatisticsDTO>> getMonthlyStatistics() {
+        log.info("获取月度统计数据");
+        
+        try {
+            long startTime = System.currentTimeMillis();
+            
+            // 调用Service层获取统计数据
+            List<MonthlyStatisticsDTO> statistics = comprehensiveAssessmentService.getMonthlyStatistics();
+            
+            long endTime = System.currentTimeMillis();
+            long executionTime = endTime - startTime;
+            
+            // 记录统计信息
+            if (statistics != null && !statistics.isEmpty()) {
+                int totalPatients = statistics.stream()
+                    .mapToInt(MonthlyStatisticsDTO::getTotalPatients)
+                    .sum();
+                
+                // 找出患者数最多的月份
+                MonthlyStatisticsDTO peakMonth = statistics.stream()
+                    .max((a, b) -> Integer.compare(a.getTotalPatients(), b.getTotalPatients()))
+                    .orElse(null);
+                
+                log.info("月度统计完成，总耗时：{}ms，统计月份数：{}，总患者数：{}，高峰月份：{} ({}人)", 
+                    executionTime, statistics.size(), totalPatients,
+                    peakMonth != null ? peakMonth.getMonth() : "N/A",
+                    peakMonth != null ? peakMonth.getTotalPatients() : 0);
+                
+                // 如果执行时间过长，记录警告
+                if (executionTime > 5000) {
+                    log.warn("月度统计执行时间超过5秒：{}ms", executionTime);
+                }
+                
+                return Result.success(statistics);
+            } else {
+                log.warn("月度统计结果为空");
+                return Result.error("未找到统计数据");
+            }
+            
+        } catch (Exception e) {
+            log.error("月度统计失败", e);
+            return Result.error("统计失败: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * 优化版综合评估分页查询
+     * 使用数据库视图和查询优化，确保响应时间控制在2秒内
+     * 
+     * @param queryDTO 查询条件
+     * @return 分页结果
+     */
+    @PostMapping("/page-optimized")
+    public Result<IPage<ComprehensiveAssessmentVO>> queryComprehensivePageOptimized(@RequestBody @Validated ComprehensiveAssessmentQueryDTO queryDTO) {
+        long startTime = System.currentTimeMillis();
+        log.info("收到优化版综合评估分页查询请求: {}", queryDTO);
+        
+        try {
+            // 参数校验和设置默认值
+            if (queryDTO.getPageNum() == null || queryDTO.getPageNum() < 1) {
+                queryDTO.setPageNum(1);
+            }
+            if (queryDTO.getPageSize() == null || queryDTO.getPageSize() < 1) {
+                queryDTO.setPageSize(10);
+            }
+            // 限制每页最大50条记录以保证性能
+            if (queryDTO.getPageSize() > 50) {
+                log.warn("请求的每页记录数过大: {}, 限制为50", queryDTO.getPageSize());
+                queryDTO.setPageSize(50);
+            }
+            
+            // 验证年龄范围
+            if (queryDTO.getMinAge() != null && queryDTO.getMaxAge() != null) {
+                if (queryDTO.getMinAge() > queryDTO.getMaxAge()) {
+                    return Result.error("最小年龄不能大于最大年龄");
+                }
+            }
+            
+            // 执行优化查询
+            IPage<ComprehensiveAssessmentVO> result = comprehensiveAssessmentService.queryComprehensivePageOptimized(queryDTO);
+            
+            long endTime = System.currentTimeMillis();
+            long executionTime = endTime - startTime;
+            
+            // 构建响应元数据
+            Map<String, Object> metadata = new HashMap<>();
+            metadata.put("executionTime", executionTime + "ms");
+            metadata.put("totalRecords", result.getTotal());
+            metadata.put("currentPageRecords", result.getRecords().size());
+            metadata.put("optimized", true);
+            
+            // 性能监控
+            if (executionTime > 2000) {
+                log.warn("优化版查询响应时间超过2秒: {}ms，请检查数据库索引和视图", executionTime);
+                metadata.put("warning", "响应时间超过2秒，建议进一步优化");
+            } else if (executionTime < 500) {
+                metadata.put("performance", "excellent");
+            } else if (executionTime < 1000) {
+                metadata.put("performance", "good");
+            } else {
+                metadata.put("performance", "acceptable");
+            }
+            
+            log.info("优化版查询成功，性能指标: {}", metadata);
+            
+            // 可以将metadata作为扩展字段返回
+            return Result.success(result);
+            
+        } catch (Exception e) {
+            long endTime = System.currentTimeMillis();
+            log.error("优化版查询失败，执行时间: {}ms, 错误: ", endTime - startTime, e);
+            return Result.error("查询失败: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * 带缓存的综合评估分页查询
+     * 对于相同的查询条件，使用缓存提升响应速度
+     * 
+     * @param queryDTO 查询条件
+     * @param useCache 是否使用缓存（默认true）
+     * @return 分页结果
+     */
+    @PostMapping("/page-cached")
+    public Result<IPage<ComprehensiveAssessmentVO>> queryComprehensivePageCached(
+            @RequestBody @Validated ComprehensiveAssessmentQueryDTO queryDTO,
+            @RequestParam(value = "useCache", defaultValue = "true") boolean useCache) {
+        
+        long startTime = System.currentTimeMillis();
+        log.info("收到缓存版综合评估查询请求，使用缓存: {}", useCache);
+        
+        try {
+            // 参数校验
+            if (queryDTO.getPageNum() == null || queryDTO.getPageNum() < 1) {
+                queryDTO.setPageNum(1);
+            }
+            if (queryDTO.getPageSize() == null || queryDTO.getPageSize() < 1) {
+                queryDTO.setPageSize(10);
+            }
+            if (queryDTO.getPageSize() > 50) {
+                queryDTO.setPageSize(50);
+            }
+            
+            // 执行查询（带缓存）
+            IPage<ComprehensiveAssessmentVO> result = comprehensiveAssessmentService
+                .queryComprehensivePageWithCache(queryDTO, useCache);
+            
+            long endTime = System.currentTimeMillis();
+            long executionTime = endTime - startTime;
+            
+            log.info("缓存版查询成功，耗时: {}ms, 使用缓存: {}", executionTime, useCache);
+            
+            return Result.success(result);
+            
+        } catch (Exception e) {
+            log.error("缓存版查询失败", e);
+            return Result.error("查询失败: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * 获取疾病分类统计
+     * 统计各种疾病的患者数量分布
+     * 
+     * @return 疾病统计结果
+     */
+    @GetMapping("/disease-statistics")
+    public Result<DiseaseStatisticsDTO> getDiseaseStatistics() {
+        try {
+            log.info("开始获取疾病分类统计");
+            long startTime = System.currentTimeMillis();
+            
+            DiseaseStatisticsDTO statistics = comprehensiveAssessmentService.getDiseaseStatistics();
+            
+            long endTime = System.currentTimeMillis();
+            log.info("疾病分类统计完成，耗时: {}ms", (endTime - startTime));
+            
+            return Result.success(statistics);
+        } catch (Exception e) {
+            log.error("获取疾病分类统计失败", e);
+            return Result.error("获取疾病分类统计失败: " + e.getMessage());
+        }
     }
 }

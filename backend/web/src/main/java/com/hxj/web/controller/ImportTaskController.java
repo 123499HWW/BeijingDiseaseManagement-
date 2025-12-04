@@ -1,8 +1,11 @@
 package com.hxj.web.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.hxj.common.dto.ImportTaskQueryDTO;
 import com.hxj.common.entity.ImportTask;
 import com.hxj.common.entity.ImportTaskDetail;
 import com.hxj.common.result.Result;
+import com.hxj.common.vo.ImportTaskPageVO;
 import com.hxj.service.ImportTaskService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -113,7 +116,7 @@ public class ImportTaskController {
     }
 
     /**
-     * 查询导入任务列表
+     * 查询导入任务列表（旧接口，保留兼容）
      */
     @GetMapping("/list")
     public Result<List<ImportTask>> getImportTaskList(
@@ -128,6 +131,24 @@ public class ImportTaskController {
             
         } catch (Exception e) {
             log.error("查询导入任务列表失败", e);
+            return Result.error("查询失败: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * 分页查询导入任务（新接口）
+     */
+    @PostMapping("/page")
+    public Result<IPage<ImportTaskPageVO>> queryImportTaskPage(@RequestBody ImportTaskQueryDTO query) {
+        try {
+            log.info("接收到导入任务分页查询请求，查询条件: {}", query);
+            
+            // 执行分页查询
+            IPage<ImportTaskPageVO> result = importTaskService.queryImportTaskPage(query);
+            
+            return Result.success("查询成功", result);
+        } catch (Exception e) {
+            log.error("导入任务分页查询失败", e);
             return Result.error("查询失败: " + e.getMessage());
         }
     }

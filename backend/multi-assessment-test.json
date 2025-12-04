@@ -1,0 +1,174 @@
+{
+  "testName": "多评估表联合查询接口测试",
+  "description": "联查patient_info、curb_assessment_result、psi_assessment_result、cpis_assessment_result和severe_pneumonia_diagnosis表",
+  "apiEndpoints": [
+    {
+      "name": "分页查询",
+      "method": "POST",
+      "path": "/api/multi-assessment/page",
+      "description": "分页查询多评估表联合数据"
+    },
+    {
+      "name": "详情查询",
+      "method": "GET",
+      "path": "/api/multi-assessment/detail/{patientId}",
+      "description": "根据患者ID查询评估详情"
+    },
+    {
+      "name": "统计查询",
+      "method": "GET",
+      "path": "/api/multi-assessment/statistics",
+      "description": "获取多评估表统计信息"
+    }
+  ],
+  
+  "testCases": [
+    {
+      "name": "基础分页查询",
+      "endpoint": "/api/multi-assessment/page",
+      "method": "POST",
+      "request": {
+        "pageNum": 1,
+        "pageSize": 10
+      },
+      "expectedResponse": {
+        "code": 200,
+        "message": "操作成功",
+        "data": {
+          "current": 1,
+          "size": 10,
+          "total": "number",
+          "pages": "number",
+          "records": "array"
+        }
+      }
+    },
+    {
+      "name": "条件查询 - 有CURB和PSI评估",
+      "endpoint": "/api/multi-assessment/page",
+      "method": "POST",
+      "request": {
+        "pageNum": 1,
+        "pageSize": 10,
+        "hasCurb": true,
+        "hasPsi": true
+      },
+      "description": "查询同时有CURB和PSI评估的患者"
+    },
+    {
+      "name": "条件查询 - 重症肺炎患者",
+      "endpoint": "/api/multi-assessment/page",
+      "method": "POST",
+      "request": {
+        "pageNum": 1,
+        "pageSize": 10,
+        "hasDiagnosis": true,
+        "isSeverePneumonia": true
+      },
+      "description": "查询诊断为重症肺炎的患者"
+    },
+    {
+      "name": "条件查询 - 年龄范围",
+      "endpoint": "/api/multi-assessment/page",
+      "method": "POST",
+      "request": {
+        "pageNum": 1,
+        "pageSize": 10,
+        "minAge": 60,
+        "maxAge": 80
+      },
+      "description": "查询60-80岁的患者"
+    },
+    {
+      "name": "模糊查询 - 患者编号",
+      "endpoint": "/api/multi-assessment/page",
+      "method": "POST",
+      "request": {
+        "pageNum": 1,
+        "pageSize": 10,
+        "patientNumber": "P00"
+      },
+      "description": "根据患者编号模糊查询"
+    },
+    {
+      "name": "详情查询",
+      "endpoint": "/api/multi-assessment/detail/1",
+      "method": "GET",
+      "expectedResponse": {
+        "code": 200,
+        "message": "操作成功",
+        "data": {
+          "patientId": 1,
+          "patientNumber": "string",
+          "patientName": "string",
+          "communityAcquiredPneumoniaRisk": "string",
+          "ventilatorPneumoniaRisk": "string",
+          "overallRiskLevel": "string"
+        }
+      }
+    }
+  ],
+  
+  "postmanConfig": {
+    "collection": "多评估表联合查询",
+    "environment": {
+      "baseUrl": "http://localhost:8080"
+    },
+    "tests": [
+      {
+        "name": "分页查询测试",
+        "request": {
+          "method": "POST",
+          "url": "{{baseUrl}}/api/multi-assessment/page",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"pageNum\": 1,\n    \"pageSize\": 10,\n    \"hasCurb\": true\n}"
+          }
+        },
+        "tests": "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response has records\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.data).to.have.property('records');\n});"
+      }
+    ]
+  },
+  
+  "frontendExample": {
+    "vue": {
+      "template": "<el-table :data=\"assessmentList\">\n  <el-table-column prop=\"patientNumber\" label=\"患者编号\" />\n  <el-table-column prop=\"patientName\" label=\"患者姓名\" />\n  <el-table-column prop=\"age\" label=\"年龄\" />\n  <el-table-column prop=\"curbTotalScore\" label=\"CURB评分\" />\n  <el-table-column prop=\"psiTotalScore\" label=\"PSI评分\" />\n  <el-table-column prop=\"cpisTotalScore\" label=\"CPIS评分\" />\n  <el-table-column prop=\"overallRiskLevel\" label=\"综合风险\">\n    <template #default=\"{row}\">\n      <el-tag :type=\"getRiskType(row.overallRiskLevel)\">\n        {{ row.overallRiskLevel }}\n      </el-tag>\n    </template>\n  </el-table-column>\n</el-table>",
+      "script": "export default {\n  data() {\n    return {\n      assessmentList: [],\n      queryForm: {\n        pageNum: 1,\n        pageSize: 10\n      }\n    }\n  },\n  methods: {\n    async fetchData() {\n      const res = await this.$http.post('/api/multi-assessment/page', this.queryForm)\n      this.assessmentList = res.data.records\n    },\n    getRiskType(risk) {\n      const map = {\n        '高风险': 'danger',\n        '中风险': 'warning',\n        '低风险': 'success',\n        '未评估': 'info'\n      }\n      return map[risk] || 'info'\n    }\n  }\n}"
+    }
+  },
+  
+  "performanceNotes": {
+    "optimizations": [
+      "使用子查询获取最新评估记录",
+      "创建必要的数据库索引",
+      "限制每页最大记录数为100",
+      "使用LEFT JOIN保证患者信息完整性"
+    ],
+    "expectedResponseTime": {
+      "pageQuery": "< 500ms",
+      "detailQuery": "< 100ms"
+    }
+  },
+  
+  "dataValidation": {
+    "requiredFields": [
+      "patientId",
+      "patientNumber",
+      "patientName"
+    ],
+    "calculatedFields": [
+      "communityAcquiredPneumoniaRisk",
+      "ventilatorPneumoniaRisk", 
+      "overallRiskLevel",
+      "completedAssessmentCount"
+    ],
+    "riskLevels": {
+      "communityAcquiredPneumoniaRisk": ["高风险", "中风险", "低风险", "未评估"],
+      "ventilatorPneumoniaRisk": ["高风险", "低风险", "未评估"],
+      "overallRiskLevel": ["高风险", "中风险", "低风险", "未评估"]
+    }
+  }
+}

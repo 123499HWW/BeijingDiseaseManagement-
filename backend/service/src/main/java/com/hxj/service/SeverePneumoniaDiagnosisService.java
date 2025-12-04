@@ -87,6 +87,33 @@ public class SeverePneumoniaDiagnosisService {
             throw new RuntimeException("患者不存在");
         }
 
+        // 检查是否已有诊断记录，如果有则删除旧记录
+        List<Long> existingDiagnosisIds = relationMapper.selectDiagnosisIdsByPatientId(patientId);
+        if (!existingDiagnosisIds.isEmpty()) {
+            log.debug("患者{}已有诊断记录，将删除旧记录并重新诊断", patientId);
+            // 逻辑删除旧的关联记录
+            for (Long diagnosisId : existingDiagnosisIds) {
+                // 删除关联关系
+                QueryWrapper<SeverePneumoniaPatientRelation> relationQuery = new QueryWrapper<>();
+                relationQuery.eq("diagnosis_id", diagnosisId);
+                relationQuery.eq("patient_id", patientId);
+                SeverePneumoniaPatientRelation oldRelation = new SeverePneumoniaPatientRelation();
+                oldRelation.setIsDeleted(1);
+                oldRelation.setUpdatedAt(LocalDateTime.now());
+                oldRelation.setUpdatedBy("System");
+                relationMapper.update(oldRelation, relationQuery);
+                
+                // 删除诊断记录
+                SeverePneumoniaDiagnosis oldDiagnosis = new SeverePneumoniaDiagnosis();
+                oldDiagnosis.setIsDeleted(1);
+                oldDiagnosis.setUpdatedAt(LocalDateTime.now());
+                oldDiagnosis.setUpdatedBy("System");
+                QueryWrapper<SeverePneumoniaDiagnosis> diagnosisQuery = new QueryWrapper<>();
+                diagnosisQuery.eq("diagnosis_id", diagnosisId);
+                diagnosisMapper.update(oldDiagnosis, diagnosisQuery);
+            }
+        }
+
         // 执行诊断
         SeverePneumoniaDiagnosis diagnosis = performDiagnosis(patient, "System");
 
@@ -140,17 +167,38 @@ public class SeverePneumoniaDiagnosisService {
         int totalCount = patients.size();
         int successCount = 0;
         int failureCount = 0;
-        int skipCount = 0;
+        int updateCount = 0;  // 记录更新的数量
         List<String> errors = new ArrayList<>();
 
         for (Patient patient : patients) {
             try {
-                // 检查是否已有诊断记录
+                // 检查是否已有诊断记录，如果有则删除旧记录
                 List<Long> existingDiagnosisIds = relationMapper.selectDiagnosisIdsByPatientId(patient.getPatientId());
+                boolean isUpdate = false;
                 if (!existingDiagnosisIds.isEmpty()) {
-                    log.debug("患者{}已有诊断记录，跳过", patient.getPatientId());
-                    skipCount++;
-                    continue;
+                    log.debug("患者{}已有诊断记录，将删除旧记录并重新诊断", patient.getPatientId());
+                    isUpdate = true;
+                    // 逻辑删除旧的关联记录
+                    for (Long diagnosisId : existingDiagnosisIds) {
+                        // 删除关联关系
+                        QueryWrapper<SeverePneumoniaPatientRelation> relationQuery = new QueryWrapper<>();
+                        relationQuery.eq("diagnosis_id", diagnosisId);
+                        relationQuery.eq("patient_id", patient.getPatientId());
+                        SeverePneumoniaPatientRelation oldRelation = new SeverePneumoniaPatientRelation();
+                        oldRelation.setIsDeleted(1);
+                        oldRelation.setUpdatedAt(LocalDateTime.now());
+                        oldRelation.setUpdatedBy("System");
+                        relationMapper.update(oldRelation, relationQuery);
+                        
+                        // 删除诊断记录
+                        SeverePneumoniaDiagnosis oldDiagnosis = new SeverePneumoniaDiagnosis();
+                        oldDiagnosis.setIsDeleted(1);
+                        oldDiagnosis.setUpdatedAt(LocalDateTime.now());
+                        oldDiagnosis.setUpdatedBy("System");
+                        QueryWrapper<SeverePneumoniaDiagnosis> diagnosisQuery = new QueryWrapper<>();
+                        diagnosisQuery.eq("diagnosis_id", diagnosisId);
+                        diagnosisMapper.update(oldDiagnosis, diagnosisQuery);
+                    }
                 }
 
                 // 执行诊断
@@ -174,7 +222,10 @@ public class SeverePneumoniaDiagnosisService {
                 relationMapper.insert(relation);
 
                 successCount++;
-                log.debug("患者{}诊断成功", patient.getPatientId());
+                if (isUpdate) {
+                    updateCount++;
+                }
+                log.debug("患者{}诊断成功{}", patient.getPatientId(), isUpdate ? "（更新）" : "");
 
             } catch (Exception e) {
                 failureCount++;
@@ -189,10 +240,10 @@ public class SeverePneumoniaDiagnosisService {
         result.setTotalCount(totalCount);
         result.setSuccessCount(successCount);
         result.setFailureCount(failureCount);
-        result.setSkipCount(skipCount);
+        result.setSkipCount(0);  // 不再跳过任何记录
         result.setErrors(errors);
-        result.setMessage(String.format("批量诊断完成：总数%d，成功%d，失败%d，跳过%d",
-                totalCount, successCount, failureCount, skipCount));
+        result.setMessage(String.format("批量诊断完成：总数%d，成功%d（其中更新%d），失败%d",
+                totalCount, successCount, updateCount, failureCount));
 
         log.info("批量重症肺炎诊断完成，{}", result.getMessage());
         return result;
@@ -377,15 +428,10 @@ public class SeverePneumoniaDiagnosisService {
 
         // 设置诊断结论
         if (isSeverePneumonia) {
-            if (majorCriteriaCount >= 1) {
-                diagnosis.setDiagnosisConclusion(String.format("诊断为重症肺炎（满足%d项主要标准）", majorCriteriaCount));
-            } else {
-                diagnosis.setDiagnosisConclusion(String.format("诊断为重症肺炎（满足%d项次要标准）", minorCriteriaCount));
-            }
+            diagnosis.setDiagnosisConclusion("重症肺炎");
             diagnosis.setRecommendedAction("建议立即收入ICU治疗，给予密切监护，必要时机械通气支持，积极抗感染治疗");
         } else {
-            diagnosis.setDiagnosisConclusion(String.format("不符合重症肺炎诊断标准（主要标准%d项，次要标准%d项）", 
-                    majorCriteriaCount, minorCriteriaCount));
+            diagnosis.setDiagnosisConclusion("非重症肺炎");
             diagnosis.setRecommendedAction("建议继续观察，密切监测生命体征，及时复查相关指标");
         }
 

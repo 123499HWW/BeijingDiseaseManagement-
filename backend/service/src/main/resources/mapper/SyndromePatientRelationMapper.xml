@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxj.common.mapper.SyndromePatientRelationMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.hxj.common.entity.SyndromePatientRelation">
+        <id column="relation_id" property="relationId" />
+        <result column="syndrome_id" property="syndromeId" />
+        <result column="patient_id" property="patientId" />
+        <result column="patient_number" property="patientNumber" />
+        <result column="diagnosis" property="diagnosis" />
+        <result column="syndrome_type" property="syndromeType" />
+        <result column="relation_status" property="relationStatus" />
+        <result column="remark" property="remark" />
+        <result column="created_at" property="createdAt" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        relation_id, syndrome_id, patient_id, patient_number,
+        diagnosis, syndrome_type, relation_status, remark,
+        created_at, created_by, updated_at, updated_by, is_deleted
+    </sql>
+
+    <!-- 根据患者ID查询症候群ID列表 -->
+    <select id="selectSyndromeIdsByPatientId" resultType="java.lang.Long">
+        SELECT syndrome_id
+        FROM syndrome_patient_relation
+        WHERE patient_id = #{patientId}
+          AND relation_status = 'ACTIVE'
+          AND is_deleted = 0
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 根据症候群ID查询患者信息 -->
+    <select id="selectPatientBySyndromeId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM syndrome_patient_relation
+        WHERE syndrome_id = #{syndromeId}
+          AND relation_status = 'ACTIVE'
+          AND is_deleted = 0
+        LIMIT 1
+    </select>
+
+    <!-- 根据患者编号查询症候群ID列表 -->
+    <select id="selectSyndromeIdsByPatientNumber" resultType="java.lang.Long">
+        SELECT syndrome_id
+        FROM syndrome_patient_relation
+        WHERE patient_number = #{patientNumber}
+          AND relation_status = 'ACTIVE'
+          AND is_deleted = 0
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 查询活跃的关联关系 -->
+    <select id="selectActiveRelations" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM syndrome_patient_relation
+        WHERE relation_status = 'ACTIVE'
+          AND is_deleted = 0
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 批量插入关联关系 -->
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO syndrome_patient_relation (
+            syndrome_id, patient_id, patient_number,
+            diagnosis, syndrome_type, relation_status, remark,
+            created_at, created_by, updated_at, updated_by, is_deleted
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.syndromeId}, #{item.patientId}, #{item.patientNumber},
+                #{item.diagnosis}, #{item.syndromeType}, #{item.relationStatus}, #{item.remark},
+                #{item.createdAt}, #{item.createdBy}, #{item.updatedAt}, #{item.updatedBy}, #{item.isDeleted}
+            )
+        </foreach>
+    </insert>
+
+    <!-- 根据患者ID删除关联关系 -->
+    <update id="deleteByPatientId">
+        UPDATE syndrome_patient_relation 
+        SET is_deleted = 1, updated_at = NOW()
+        WHERE patient_id = #{patientId}
+          AND is_deleted = 0
+    </update>
+
+    <!-- 根据症候群ID删除关联关系 -->
+    <update id="deleteBySyndromeId">
+        UPDATE syndrome_patient_relation 
+        SET is_deleted = 1, updated_at = NOW()
+        WHERE syndrome_id = #{syndromeId}
+          AND is_deleted = 0
+    </update>
+
+</mapper>

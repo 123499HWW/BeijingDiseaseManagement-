@@ -4,7 +4,10 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hxj.common.dto.ImportTaskQueryDTO;
 import com.hxj.common.dto.message.ImportTaskMessageDTO;
 import com.hxj.common.dto.message.PatientDataMessageDTO;
 import com.hxj.common.dto.patient.PatientExcelImportDTO;
@@ -15,6 +18,7 @@ import com.hxj.common.enums.Gender;
 import com.hxj.common.mapper.ImportTaskDetailMapper;
 import com.hxj.common.mapper.ImportTaskMapper;
 import com.hxj.common.mapper.PatientMapper;
+import com.hxj.common.vo.ImportTaskPageVO;
 import com.hxj.service.message.MessageProducerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -435,6 +439,74 @@ public class ImportTaskService {
         queryWrapper.orderByDesc(ImportTask::getCreatedAt);
         
         return importTaskMapper.selectList(queryWrapper);
+    }
+    
+    /**
+     * 分页查询导入任务
+     */
+    public IPage<ImportTaskPageVO> queryImportTaskPage(ImportTaskQueryDTO query) {
+        log.info("分页查询导入任务，页码: {}, 页大小: {}", query.getPageNum(), query.getPageSize());
+        
+        // 参数校验
+        if (query.getPageNum() == null || query.getPageNum() < 1) {
+            query.setPageNum(1);
+        }
+        if (query.getPageSize() == null || query.getPageSize() < 1) {
+            query.setPageSize(10);
+        }
+        if (query.getPageSize() > 100) {
+            query.setPageSize(100);
+        }
+        
+        // 创建分页对象
+        Page<ImportTaskPageVO> page = new Page<>(query.getPageNum(), query.getPageSize());
+        
+        // 执行分页查询
+        IPage<ImportTaskPageVO> result = importTaskMapper.selectImportTaskPage(page, query);
+        
+        // 处理任务状态和类型描述
+        if (result.getRecords() != null) {
+            result.getRecords().forEach(vo -> {
+                // 设置任务状态描述
+                vo.setTaskStatusDesc(getTaskStatusDesc(vo.getTaskStatus()));
+                // 设置导入类型描述
+                vo.setImportTypeDesc(getImportTypeDesc(vo.getImportType()));
+            });
+        }
+        
+        log.info("导入任务分页查询完成，总记录数: {}, 当前页记录数: {}", 
+                result.getTotal(), result.getRecords().size());
+        
+        return result;
+    }
+    
+    /**
+     * 获取任务状态描述
+     */
+    private String getTaskStatusDesc(String taskStatus) {
+        if (taskStatus == null) return "";
+        switch (taskStatus) {
+            case "PENDING": return "待处理";
+            case "PROCESSING": return "处理中";
+            case "COMPLETED": return "已完成";
+            case "FAILED": return "失败";
+            case "CANCELLED": return "已取消";
+            default: return taskStatus;
+        }
+    }
+    
+    /**
+     * 获取导入类型描述
+     */
+    private String getImportTypeDesc(String importType) {
+        if (importType == null) return "";
+        switch (importType) {
+            case "PATIENT": 
+            case "PATIENT_DATA": return "患者数据";
+            case "EXAMINATION": return "体检数据";
+            case "LAB_RESULT": return "检验结果";
+            default: return importType;
+        }
     }
 
     /**

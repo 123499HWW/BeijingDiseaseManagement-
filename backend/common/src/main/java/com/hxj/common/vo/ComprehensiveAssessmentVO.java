@@ -1,6 +1,7 @@
 package com.hxj.common.vo;
 
 import lombok.Data;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -31,9 +32,79 @@ public class ComprehensiveAssessmentVO {
      */
     private Integer age;
     
-    // ==================== CURB-65评分 ====================
     /**
-     * CURB-65评分ID
+     * 住院日期
+     */
+    private String admissionDate;
+    
+    /**
+     * 主诉
+     */
+    private String chiefComplaint;
+    
+    /**
+     * 现病史
+     */
+    private String presentIllness;
+    
+    /**
+     * 动脉血气pH
+     */
+    private String arterialPh;
+    
+    /**
+     * 动脉血气pO2(mmHg)
+     */
+    private String arterialPo2;
+    
+    /**
+     * 动脉血气氧合指数(mmHg)
+     */
+    private String arterialOxygenationIndex;
+    
+    /**
+     * 血尿素氮(mmol/L)
+     */
+    private String bloodUreaNitrogen;
+    
+    /**
+     * 血肌酐(μmol/L)
+     */
+    private String serumCreatinine;
+    
+    /**
+     * 总胆红素(μmol/L)
+     */
+    private String totalBilirubin;
+    
+    /**
+     * 血小板计数(×10^9/L)
+     */
+    private String plateletCount;
+    
+    /**
+     * 是否应用呼吸机
+     */
+    private Boolean ventilatorUsed;
+    
+    /**
+     * 是否入住ICU
+     */
+    private Boolean icuAdmission;
+    
+    /**
+     * 是否应用血管活性药物
+     */
+    private Boolean vasoactiveDrugsUsed;
+    
+    /**
+     * 是否应用特殊级/限制级抗生素
+     */
+    private Boolean specialAntibioticsUsed;
+    
+    // ==================== CURB-65评分详细字段 ====================
+    /**
+     * CURB评分ID
      */
     private Long curbId;
     
@@ -46,11 +117,6 @@ public class ComprehensiveAssessmentVO {
      * CURB-65风险等级
      */
     private String curbRiskLevel;
-    
-    /**
-     * CURB-65评估时间
-     */
-    private LocalDateTime curbAssessmentDate;
     
     // ==================== COVID-19重型诊断 ====================
     /**
@@ -73,11 +139,6 @@ public class ComprehensiveAssessmentVO {
      */
     private String covid19SeverityLevel;
     
-    /**
-     * COVID-19重型评估时间
-     */
-    private LocalDateTime covid19AssessmentDate;
-    
     // ==================== COVID-19危重型诊断 ====================
     /**
      * COVID-19危重型诊断ID
@@ -99,11 +160,6 @@ public class ComprehensiveAssessmentVO {
      */
     private String covid19CriticalSeverityLevel;
     
-    /**
-     * COVID-19危重型评估时间
-     */
-    private LocalDateTime covid19CriticalAssessmentDate;
-    
     // ==================== CPIS评分 ====================
     /**
      * CPIS评分ID
@@ -119,11 +175,6 @@ public class ComprehensiveAssessmentVO {
      * CPIS风险等级
      */
     private String cpisRiskLevel;
-    
-    /**
-     * CPIS评估时间
-     */
-    private LocalDateTime cpisAssessmentDate;
     
     // ==================== PSI评分 ====================
     /**
@@ -141,11 +192,6 @@ public class ComprehensiveAssessmentVO {
      */
     private String psiRiskClass;
     
-    /**
-     * PSI评估时间
-     */
-    private LocalDateTime psiAssessmentDate;
-    
     // ==================== qSOFA评分 ====================
     /**
      * qSOFA评分ID
@@ -161,11 +207,6 @@ public class ComprehensiveAssessmentVO {
      * qSOFA风险等级
      */
     private String qsofaRiskLevel;
-    
-    /**
-     * qSOFA评估时间
-     */
-    private LocalDateTime qsofaAssessmentDate;
     
     // ==================== 重症肺炎诊断 ====================
     /**
@@ -188,11 +229,6 @@ public class ComprehensiveAssessmentVO {
      */
     private Integer minorCriteriaCount;
     
-    /**
-     * 重症肺炎评估时间
-     */
-    private LocalDateTime severePneumoniaAssessmentDate;
-    
     // ==================== SOFA评分 ====================
     /**
      * SOFA评分ID
@@ -209,13 +245,32 @@ public class ComprehensiveAssessmentVO {
      */
     private String sofaSeverityLevel;
     
+    // ==================== 呼吸道症候群评估 ====================
     /**
-     * SOFA评估时间
+     * 呼吸道症候群评估ID
      */
-    private LocalDateTime sofaAssessmentDate;
+    private Long respiratorySyndromeId;
     
     /**
-     * 最新评估时间（所有评估中最近的时间）
+     * 呼吸道症候群严重程度评分
      */
-    private LocalDateTime latestAssessmentDate;
+    private Integer respiratorySyndromeSeverityScore;
+    
+    /**
+     * 呼吸道症候群严重程度等级
+     */
+    private String respiratorySyndromeSeverityLevel;
+    
+    // ==================== 综合判断结果 ====================
+    /**
+     * 社区获得性肺炎风险等级
+     * 基于CURB-65、PSI、CPIS和重症肺炎诊断的综合判断
+     */
+    private String communityAcquiredPneumoniaRisk;
+    
+    /**
+     * 脓毒症风险等级
+     * 基于qSOFA和SOFA的综合判断
+     */
+    private String sepsisRisk;
 }

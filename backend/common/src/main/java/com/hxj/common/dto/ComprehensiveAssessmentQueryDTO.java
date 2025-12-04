@@ -101,6 +101,19 @@ public class ComprehensiveAssessmentQueryDTO extends BasePageQueryDTO {
      */
     private String sofaSeverityLevel;
     
+    /**
+     * 呼吸道症候群严重程度等级
+     */
+    private String respiratorySyndromeSeverityLevel;
+    
+    // ==================== 逻辑控制 ====================
+    /**
+     * 与或逻辑控制
+     * true: AND逻辑，需要同时满足所有条件才判定为高风险（默认）
+     * false: OR逻辑，满足任一条件即判定为高风险
+     */
+    private Boolean logicalOperator = true;
+    
     // ==================== 范围查询 ====================
     /**
      * 最小CURB-65分数
@@ -151,4 +164,19 @@ public class ComprehensiveAssessmentQueryDTO extends BasePageQueryDTO {
      * 最大SOFA分数
      */
     private Integer maxSofaScore;
+    
+    /**
+     * 最小呼吸道症候群严重程度评分
+     */
+    private Integer minRespiratorySyndromeScore;
+    
+    /**
+     * 呼吸道症候群严重程度分数最大值
+     */
+    private Integer maxRespiratorySyndromeScore;
+    
+    /**
+     * 是否有评估记录（用于筛选已评估/未评估的患者）
+     */
+    private Boolean hasAssessment;
 }

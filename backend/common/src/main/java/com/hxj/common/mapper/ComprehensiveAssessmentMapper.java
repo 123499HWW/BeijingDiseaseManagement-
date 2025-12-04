@@ -21,44 +21,34 @@ public interface ComprehensiveAssessmentMapper {
     @Select("<script>" +
             "SELECT " +
             "p.patient_id, p.patient_number, p.gender, p.age, " +
+            "p.admission_date, p.chief_complaint, p.present_illness, " +
+            "p.arterial_ph, p.arterial_po2, p.arterial_oxygenation_index, " +
+            "p.blood_urea_nitrogen, p.serum_creatinine, p.total_bilirubin, p.platelet_count, " +
+            "p.ventilator_used, p.icu_admission, p.vasoactive_drugs_used, p.special_antibiotics_used, " +
             // CURB-65评分
             "curb.curb_id, curb.total_score as curbTotalScore, curb.risk_level as curbRiskLevel, " +
-            "curb.created_at as curbAssessmentDate, " +
             // COVID-19重型
             "c19.assessment_id as covid19AssessmentId, c19.is_severe_type as covid19IsSevereType, " +
             "c19.criteria_met_count as covid19CriteriaCount, c19.severity_level as covid19SeverityLevel, " +
-            "c19.created_at as covid19AssessmentDate, " +
             // COVID-19危重型
             "c19c.assessment_id as covid19CriticalAssessmentId, c19c.is_critical_type as covid19IsCriticalType, " +
             "c19c.criteria_met_count as covid19CriticalCriteriaCount, c19c.severity_level as covid19CriticalSeverityLevel, " +
-            "c19c.created_at as covid19CriticalAssessmentDate, " +
             // CPIS评分
             "cpis.cpis_id as cpisId, cpis.total_score as cpisTotalScore, cpis.risk_level as cpisRiskLevel, " +
-            "cpis.created_at as cpisAssessmentDate, " +
             // PSI评分
             "psi.psi_id as psiId, psi.total_score as psiTotalScore, psi.risk_class as psiRiskClass, " +
-            "psi.created_at as psiAssessmentDate, " +
             // qSOFA评分
             "qsofa.assessment_id as qsofaAssessmentId, qsofa.total_score as qsofaTotalScore, " +
-            "qsofa.risk_level as qsofaRiskLevel, qsofa.created_at as qsofaAssessmentDate, " +
+            "qsofa.risk_level as qsofaRiskLevel, " +
             // 重症肺炎诊断
             "spd.diagnosis_id as severePneumoniaId, spd.is_severe_pneumonia as isSeverePneumonia, " +
             "spd.major_criteria_count as majorCriteriaCount, spd.minor_criteria_count as minorCriteriaCount, " +
-            "spd.created_at as severePneumoniaAssessmentDate, " +
             // SOFA评分
             "sofa.assessment_id as sofaAssessmentId, sofa.total_score as sofaTotalScore, " +
-            "sofa.severity_level as sofaSeverityLevel, sofa.created_at as sofaAssessmentDate, " +
-            // 最新评估时间
-            "GREATEST(" +
-            "  COALESCE(curb.created_at, '1970-01-01'), " +
-            "  COALESCE(c19.created_at, '1970-01-01'), " +
-            "  COALESCE(c19c.created_at, '1970-01-01'), " +
-            "  COALESCE(cpis.created_at, '1970-01-01'), " +
-            "  COALESCE(psi.created_at, '1970-01-01'), " +
-            "  COALESCE(qsofa.created_at, '1970-01-01'), " +
-            "  COALESCE(spd.created_at, '1970-01-01'), " +
-            "  COALESCE(sofa.created_at, '1970-01-01') " +
-            ") as latestAssessmentDate " +
+            "sofa.severity_level as sofaSeverityLevel, " +
+            // 呼吸道症候群评估
+            "rsa.syndrome_id as respiratorySyndromeId, rsa.severity_score as respiratorySyndromeSeverityScore, " +
+            "rsa.severity_level as respiratorySyndromeSeverityLevel " +
             "FROM patient_info p " +
             // CURB-65 LEFT JOIN（使用子查询获取最新记录）
             "LEFT JOIN (" +
@@ -140,6 +130,16 @@ public interface ComprehensiveAssessmentMapper {
             "    WHERE sa2.is_deleted = 0 GROUP BY spr2.patient_id" +
             "  )" +
             ") sofa ON p.patient_id = sofa.patient_id " +
+            // 呼吸道症候群评估 LEFT JOIN
+            "LEFT JOIN (" +
+            "  SELECT spr.patient_id, rsa2.* FROM respiratory_syndrome_assessment rsa2 " +
+            "  INNER JOIN syndrome_patient_relation spr ON rsa2.syndrome_id = spr.syndrome_id " +
+            "  WHERE rsa2.is_deleted = 0 AND rsa2.syndrome_id IN (" +
+            "    SELECT MAX(rsa3.syndrome_id) FROM respiratory_syndrome_assessment rsa3 " +
+            "    INNER JOIN syndrome_patient_relation spr2 ON rsa3.syndrome_id = spr2.syndrome_id " +
+            "    WHERE rsa3.is_deleted = 0 GROUP BY spr2.patient_id" +
+            "  )" +
+            ") rsa ON p.patient_id = rsa.patient_id " +
             "WHERE p.is_deleted = 0 " +
             // 动态查询条件
             "<if test='patientNumber != null and patientNumber != \"\"'>" +
@@ -237,6 +237,16 @@ public interface ComprehensiveAssessmentMapper {
             "<if test='maxSofaScore != null'>" +
             "  AND sofa.total_score &lt;= #{maxSofaScore} " +
             "</if>" +
+            // 呼吸道症候群条件
+            "<if test='respiratorySyndromeSeverityLevel != null and respiratorySyndromeSeverityLevel != \"\"'>" +
+            "  AND rsa.severity_level = #{respiratorySyndromeSeverityLevel} " +
+            "</if>" +
+            "<if test='minRespiratorySyndromeScore != null'>" +
+            "  AND rsa.severity_score &gt;= #{minRespiratorySyndromeScore} " +
+            "</if>" +
+            "<if test='maxRespiratorySyndromeScore != null'>" +
+            "  AND rsa.severity_score &lt;= #{maxRespiratorySyndromeScore} " +
+            "</if>" +
             "ORDER BY p.patient_id DESC" +
             "</script>")
     IPage<ComprehensiveAssessmentVO> selectComprehensivePage(
@@ -269,6 +279,9 @@ public interface ComprehensiveAssessmentMapper {
             @Param("sofaTotalScore") Integer sofaTotalScore,
             @Param("sofaSeverityLevel") String sofaSeverityLevel,
             @Param("minSofaScore") Integer minSofaScore,
-            @Param("maxSofaScore") Integer maxSofaScore
+            @Param("maxSofaScore") Integer maxSofaScore,
+            @Param("respiratorySyndromeSeverityLevel") String respiratorySyndromeSeverityLevel,
+            @Param("minRespiratorySyndromeScore") Integer minRespiratorySyndromeScore,
+            @Param("maxRespiratorySyndromeScore") Integer maxRespiratorySyndromeScore
     );
 }

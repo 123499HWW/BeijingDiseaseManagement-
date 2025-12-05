@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxj.common.mapper.PsiPatientRelationMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.hxj.common.entity.PsiPatientRelation">
+        <id column="relation_id" property="relationId" />
+        <result column="psi_id" property="psiId" />
+        <result column="patient_id" property="patientId" />
+        <result column="patient_number" property="patientNumber" />
+        <result column="relation_type" property="relationType" />
+        <result column="relation_status" property="relationStatus" />
+        <result column="remark" property="remark" />
+        <result column="created_at" property="createdAt" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        relation_id, psi_id, patient_id, patient_number,
+        relation_type, relation_status, remark,
+        created_at, created_by, updated_at, updated_by, is_deleted
+    </sql>
+
+    <!-- 根据患者ID查询PSI评分ID列表 -->
+    <select id="selectPsiIdsByPatientId" resultType="java.lang.Long">
+        SELECT psi_id
+        FROM psi_patient_relation
+        WHERE patient_id = #{patientId}
+          AND relation_status = 'ACTIVE'
+          AND is_deleted = 0
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 根据PSI评分ID查询患者信息 -->
+    <select id="selectPatientByPsiId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM psi_patient_relation
+        WHERE psi_id = #{psiId}
+          AND relation_status = 'ACTIVE'
+          AND is_deleted = 0
+        LIMIT 1
+    </select>
+
+    <!-- 根据患者编号查询PSI评分ID列表 -->
+    <select id="selectPsiIdsByPatientNumber" resultType="java.lang.Long">
+        SELECT psi_id
+        FROM psi_patient_relation
+        WHERE patient_number = #{patientNumber}
+          AND relation_status = 'ACTIVE'
+          AND is_deleted = 0
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 批量插入关联关系 -->
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO psi_patient_relation (
+            relation_id, psi_id, patient_id, patient_number,
+            relation_type, relation_status, remark,
+            created_at, created_by, updated_at, updated_by, is_deleted
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.relationId}, #{item.psiId}, #{item.patientId}, #{item.patientNumber},
+                #{item.relationType}, #{item.relationStatus}, #{item.remark},
+                #{item.createdAt}, #{item.createdBy}, #{item.updatedAt}, #{item.updatedBy}, #{item.isDeleted}
+            )
+        </foreach>
+    </insert>
+
+    <!-- 根据患者ID删除关联关系 -->
+    <update id="deleteByPatientId">
+        UPDATE psi_patient_relation 
+        SET is_deleted = 1, updated_at = NOW()
+        WHERE patient_id = #{patientId}
+          AND is_deleted = 0
+    </update>
+
+    <!-- 根据PSI评分ID删除关联关系 -->
+    <update id="deleteByPsiId">
+        UPDATE psi_patient_relation 
+        SET is_deleted = 1, updated_at = NOW()
+        WHERE psi_id = #{psiId}
+          AND is_deleted = 0
+    </update>
+
+</mapper>

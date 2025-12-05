@@ -1,0 +1,67 @@
+{
+    "接口测试": {
+        "名称": "年龄分段综合评估统计",
+        "方法": "GET",
+        "URL": "http://localhost:8080/api/comprehensive-assessment/age-segment-statistics",
+        "请求头": {
+            "Content-Type": "application/json"
+        },
+        "预期返回示例": {
+            "code": 200,
+            "message": "success",
+            "data": [
+                {
+                    "ageRange": "0-17",
+                    "totalPatients": 0,
+                    "covid19SeverityDistribution": {
+                        "非重型": 0,
+                        "重型": 0,
+                        "重型（中危）": 0,
+                        "重型（高危）": 0,
+                        "无数据": 0
+                    },
+                    "covid19CriticalDistribution": {
+                        "非危重型": 0,
+                        "危重型": 0,
+                        "危重型（高危）": 0,
+                        "危重型（极危重）": 0,
+                        "无数据": 0
+                    },
+                    "respiratorySyndromeDistribution": {
+                        "轻度": 0,
+                        "中度": 0,
+                        "重度": 0,
+                        "危重": 0,
+                        "无数据": 0
+                    },
+                    "communityPneumoniaRiskDistribution": {
+                        "低风险": 0,
+                        "中风险": 0,
+                        "高风险": 0,
+                        "极高风险": 0,
+                        "无数据": 0
+                    },
+                    "sepsisRiskDistribution": {
+                        "低风险": 0,
+                        "中风险": 0,
+                        "高风险": 0,
+                        "极高风险": 0,
+                        "无数据": 0
+                    }
+                }
+            ]
+        }
+    },
+    "CURL测试命令": "curl -X GET http://localhost:8080/api/comprehensive-assessment/age-segment-statistics",
+    "PostMan测试": {
+        "方法": "GET",
+        "URL": "{{base_url}}/api/comprehensive-assessment/age-segment-statistics",
+        "Headers": {
+            "Content-Type": "application/json"
+        }
+    },
+    "前端调用示例": {
+        "axios": "axios.get('/api/comprehensive-assessment/age-segment-statistics').then(res => console.log(res.data))",
+        "fetch": "fetch('/api/comprehensive-assessment/age-segment-statistics').then(res => res.json()).then(data => console.log(data))"
+    }
+}

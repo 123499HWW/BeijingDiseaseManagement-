@@ -1,0 +1,126 @@
+{
+  "testName": "疾病分类统计接口测试",
+  "apiEndpoint": "/api/comprehensive-assessment/disease-statistics",
+  "method": "GET",
+  
+  "curlExample": "curl -X GET http://localhost:8080/api/comprehensive-assessment/disease-statistics -H \"Content-Type: application/json\"",
+  
+  "postmanConfig": {
+    "method": "GET",
+    "url": "{{baseUrl}}/api/comprehensive-assessment/disease-statistics",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  },
+  
+  "frontendUsage": {
+    "description": "前端调用示例和数据可视化配置",
+    "axiosCall": "const response = await axios.get('/api/comprehensive-assessment/disease-statistics');",
+    
+    "dataVisualization": {
+      "pieChart": {
+        "description": "饼图展示各疾病风险分布",
+        "libraries": ["ECharts", "AntV", "Chart.js"],
+        "exampleConfig": {
+          "communityPneumonia": {
+            "title": "社区获得性肺炎风险分布",
+            "data": ["高风险", "低风险", "无数据"]
+          },
+          "sepsis": {
+            "title": "脓毒症风险分布",
+            "data": ["高风险", "低风险", "无数据"]
+          },
+          "covid19": {
+            "title": "COVID-19重型分布",
+            "data": ["重型", "非重型", "未评估"]
+          }
+        }
+      },
+      
+      "barChart": {
+        "description": "柱状图对比不同疾病高风险患者数",
+        "xAxis": ["社区获得性肺炎", "脓毒症", "COVID-19重型", "COVID-19危重型"],
+        "yAxis": "患者数量",
+        "series": "高风险/重型患者数"
+      },
+      
+      "dashboard": {
+        "description": "仪表盘综合展示",
+        "components": [
+          {
+            "type": "StatisticCard",
+            "title": "总患者数",
+            "field": "totalPatients"
+          },
+          {
+            "type": "StatisticCard", 
+            "title": "社区肺炎高风险",
+            "field": "communityPneumoniaHighRiskCount",
+            "color": "red"
+          },
+          {
+            "type": "StatisticCard",
+            "title": "脓毒症高风险",
+            "field": "sepsisHighRiskCount",
+            "color": "orange"
+          },
+          {
+            "type": "StatisticCard",
+            "title": "COVID-19重型",
+            "field": "covid19SevereCount",
+            "color": "purple"
+          }
+        ]
+      }
+    }
+  },
+  
+  "expectedResponse": {
+    "structure": {
+      "code": 200,
+      "message": "操作成功",
+      "data": {
+        "statisticsTime": "string: 统计时间",
+        "totalPatients": "number: 总患者数",
+        "communityPneumoniaRiskStats": "object: 社区获得性肺炎风险分布",
+        "communityPneumoniaHighRiskCount": "number: 高风险患者数",
+        "communityPneumoniaLowRiskCount": "number: 低风险患者数",
+        "sepsisRiskStats": "object: 脓毒症风险分布",
+        "sepsisHighRiskCount": "number: 脓毒症高风险患者数",
+        "sepsisLowRiskCount": "number: 脓毒症低风险患者数",
+        "covid19Stats": "object: COVID-19重型分布",
+        "covid19SevereCount": "number: COVID-19重型患者数",
+        "covid19NonSevereCount": "number: COVID-19非重型患者数",
+        "covid19CriticalStats": "object: COVID-19危重型分布",
+        "covid19CriticalCount": "number: COVID-19危重型患者数",
+        "covid19NonCriticalCount": "number: COVID-19非危重型患者数",
+        "respiratorySyndromeStats": "object: 呼吸道症候群评估状态",
+        "respiratorySyndromeLevelStats": "object: 呼吸道症候群严重程度分布",
+        "assessedPatients": "number: 已评估患者数",
+        "unassessedPatients": "number: 未评估患者数"
+      }
+    }
+  },
+  
+  "testCases": [
+    {
+      "name": "正常调用",
+      "description": "直接调用获取统计数据",
+      "expectedStatus": 200,
+      "assertions": [
+        "response.data.totalPatients >= 0",
+        "response.data.communityPneumoniaHighRiskCount + response.data.communityPneumoniaLowRiskCount <= response.data.totalPatients",
+        "response.data.statisticsTime != null"
+      ]
+    }
+  ],
+  
+  "performanceNotes": {
+    "expectedTime": "2-10秒（取决于数据量）",
+    "optimization": [
+      "内部使用分页查询优化内存",
+      "可考虑添加缓存机制",
+      "建议使用定时任务预计算"
+    ]
+  }
+}

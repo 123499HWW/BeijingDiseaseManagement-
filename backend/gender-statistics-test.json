@@ -1,0 +1,134 @@
+{
+    "接口测试": {
+        "名称": "性别分类综合评估统计",
+        "方法": "GET",
+        "URL": "http://localhost:8080/api/comprehensive-assessment/gender-statistics",
+        "请求头": {
+            "Content-Type": "application/json"
+        },
+        "预期返回示例": {
+            "code": 200,
+            "message": "success",
+            "data": [
+                {
+                    "gender": "男",
+                    "totalPatients": 0,
+                    "averageAge": 0.0,
+                    "minAge": null,
+                    "maxAge": null,
+                    "covid19SeverityDistribution": {
+                        "非重型": 0,
+                        "重型": 0,
+                        "重型（中危）": 0,
+                        "重型（高危）": 0,
+                        "无数据": 0
+                    },
+                    "covid19CriticalDistribution": {
+                        "非危重型": 0,
+                        "危重型": 0,
+                        "危重型（高危）": 0,
+                        "危重型（极危重）": 0,
+                        "无数据": 0
+                    },
+                    "respiratorySyndromeDistribution": {
+                        "轻度": 0,
+                        "中度": 0,
+                        "重度": 0,
+                        "危重": 0,
+                        "无数据": 0
+                    },
+                    "communityPneumoniaRiskDistribution": {
+                        "低风险": 0,
+                        "中风险": 0,
+                        "高风险": 0,
+                        "极高风险": 0,
+                        "无数据": 0
+                    },
+                    "sepsisRiskDistribution": {
+                        "低风险": 0,
+                        "中风险": 0,
+                        "高风险": 0,
+                        "极高风险": 0,
+                        "无数据": 0
+                    },
+                    "ageGroupDistribution": {
+                        "0-17": 0,
+                        "18-29": 0,
+                        "30-44": 0,
+                        "45-59": 0,
+                        "60-74": 0,
+                        "75+": 0
+                    }
+                },
+                {
+                    "gender": "女",
+                    "totalPatients": 0,
+                    "averageAge": 0.0,
+                    "minAge": null,
+                    "maxAge": null,
+                    "covid19SeverityDistribution": {
+                        "非重型": 0,
+                        "重型": 0,
+                        "重型（中危）": 0,
+                        "重型（高危）": 0,
+                        "无数据": 0
+                    },
+                    "covid19CriticalDistribution": {
+                        "非危重型": 0,
+                        "危重型": 0,
+                        "危重型（高危）": 0,
+                        "危重型（极危重）": 0,
+                        "无数据": 0
+                    },
+                    "respiratorySyndromeDistribution": {
+                        "轻度": 0,
+                        "中度": 0,
+                        "重度": 0,
+                        "危重": 0,
+                        "无数据": 0
+                    },
+                    "communityPneumoniaRiskDistribution": {
+                        "低风险": 0,
+                        "中风险": 0,
+                        "高风险": 0,
+                        "极高风险": 0,
+                        "无数据": 0
+                    },
+                    "sepsisRiskDistribution": {
+                        "低风险": 0,
+                        "中风险": 0,
+                        "高风险": 0,
+                        "极高风险": 0,
+                        "无数据": 0
+                    },
+                    "ageGroupDistribution": {
+                        "0-17": 0,
+                        "18-29": 0,
+                        "30-44": 0,
+                        "45-59": 0,
+                        "60-74": 0,
+                        "75+": 0
+                    }
+                }
+            ]
+        }
+    },
+    "CURL测试命令": "curl -X GET http://localhost:8080/api/comprehensive-assessment/gender-statistics",
+    "PostMan测试": {
+        "方法": "GET",
+        "URL": "{{base_url}}/api/comprehensive-assessment/gender-statistics",
+        "Headers": {
+            "Content-Type": "application/json"
+        }
+    },
+    "前端调用示例": {
+        "axios": "axios.get('/api/comprehensive-assessment/gender-statistics').then(res => console.log(res.data))",
+        "fetch": "fetch('/api/comprehensive-assessment/gender-statistics').then(res => res.json()).then(data => console.log(data))",
+        "数据处理示例": "const maleData = data.find(item => item.gender === '男'); const femaleData = data.find(item => item.gender === '女');"
+    },
+    "数据分析示例": {
+        "性别比例计算": "const maleRatio = maleData.totalPatients / (maleData.totalPatients + femaleData.totalPatients) * 100",
+        "平均年龄对比": "console.log(`男性平均年龄: ${maleData.averageAge}, 女性平均年龄: ${femaleData.averageAge}`)",
+        "高风险患者统计": "const maleHighRisk = maleData.covid19SeverityDistribution['重型（高危）'] || 0"
+    }
+}

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxj.common.mapper.ImportTaskMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.hxj.common.entity.ImportTask">
+        <id column="task_id" property="taskId" />
+        <result column="task_number" property="taskNumber" />
+        <result column="task_name" property="taskName" />
+        <result column="import_type" property="importType" />
+        <result column="file_path" property="filePath" />
+        <result column="file_name" property="fileName" />
+        <result column="file_size" property="fileSize" />
+        <result column="total_count" property="totalCount" />
+        <result column="success_count" property="successCount" />
+        <result column="failure_count" property="failureCount" />
+        <result column="skip_count" property="skipCount" />
+        <result column="task_status" property="taskStatus" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <result column="error_message" property="errorMessage" />
+        <result column="created_at" property="createdAt" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+    
+    <!-- 分页查询结果映射 -->
+    <resultMap id="PageResultMap" type="com.hxj.common.vo.ImportTaskPageVO" extends="BaseResultMap">
+        <result column="progress_percent" property="progressPercent" />
+        <result column="duration_seconds" property="durationSeconds" />
+    </resultMap>
+    
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        task_id, task_number, task_name, import_type, file_path, file_name, file_size,
+        total_count, success_count, failure_count, skip_count,
+        task_status, start_time, end_time, error_message,
+        created_at, created_by, updated_at, updated_by, is_deleted
+    </sql>
+    
+    <!-- 分页查询导入任务 -->
+    <select id="selectImportTaskPage" resultMap="PageResultMap">
+        SELECT 
+            <include refid="Base_Column_List" />,
+            CASE 
+                WHEN total_count > 0 THEN 
+                    ROUND(success_count * 100.0 / total_count, 0) 
+                ELSE 0 
+            END as progress_percent,
+            CASE 
+                WHEN end_time IS NOT NULL AND start_time IS NOT NULL THEN 
+                    TIMESTAMPDIFF(SECOND, start_time, end_time) 
+                ELSE NULL 
+            END as duration_seconds
+        FROM import_task
+        WHERE is_deleted = 0
+        <if test="query != null">
+            <!-- 任务状态 -->
+            <if test="query.taskStatus != null and query.taskStatus != ''">
+                AND task_status = #{query.taskStatus}
+            </if>
+            
+            <!-- 导入类型 -->
+            <if test="query.importType != null and query.importType != ''">
+                AND import_type = #{query.importType}
+            </if>
+            
+            <!-- 创建人 -->
+            <if test="query.createdBy != null and query.createdBy != ''">
+                AND created_by = #{query.createdBy}
+            </if>
+            
+            <!-- 文件名（模糊查询） -->
+            <if test="query.fileName != null and query.fileName != ''">
+                AND file_name LIKE CONCAT('%', #{query.fileName}, '%')
+            </if>
+            
+            <!-- 开始时间范围 -->
+            <if test="query.startTimeBegin != null">
+                AND start_time &gt;= #{query.startTimeBegin}
+            </if>
+            <if test="query.startTimeEnd != null">
+                AND start_time &lt;= #{query.startTimeEnd}
+            </if>
+            
+            <!-- 结束时间范围 -->
+            <if test="query.endTimeBegin != null">
+                AND end_time &gt;= #{query.endTimeBegin}
+            </if>
+            <if test="query.endTimeEnd != null">
+                AND end_time &lt;= #{query.endTimeEnd}
+            </if>
+            
+            <!-- 成功数范围 -->
+            <if test="query.minSuccessCount != null">
+                AND success_count &gt;= #{query.minSuccessCount}
+            </if>
+            <if test="query.maxSuccessCount != null">
+                AND success_count &lt;= #{query.maxSuccessCount}
+            </if>
+            
+            <!-- 失败数范围 -->
+            <if test="query.minFailureCount != null">
+                AND failure_count &gt;= #{query.minFailureCount}
+            </if>
+            <if test="query.maxFailureCount != null">
+                AND failure_count &lt;= #{query.maxFailureCount}
+            </if>
+        </if>
+        ORDER BY created_at DESC
+    </select>
+
+</mapper>

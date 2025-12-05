@@ -1,0 +1,50 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# IDE
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Node modules (if any)
+node_modules/
+
+# Documentation
+README.md
+docs/
+
+# Test files
+**/src/test/
+
+# IDE specific files
+.classpath
+.project
+.settings/

@@ -1,0 +1,258 @@
+{
+  "testName": "脓毒症评估联合查询接口测试",
+  "description": "联查patient_info、qsofa_assessment和sofa_assessment表",
+  "apiEndpoints": [
+    {
+      "name": "分页查询",
+      "method": "POST",
+      "path": "/api/sepsis-assessment/page",
+      "description": "分页查询脓毒症评估联合数据"
+    },
+    {
+      "name": "详情查询",
+      "method": "GET",
+      "path": "/api/sepsis-assessment/detail/{patientId}",
+      "description": "根据患者ID查询脓毒症评估详情"
+    },
+    {
+      "name": "高风险查询",
+      "method": "GET",
+      "path": "/api/sepsis-assessment/high-risk",
+      "description": "查询高风险脓毒症患者"
+    },
+    {
+      "name": "统计查询",
+      "method": "GET",
+      "path": "/api/sepsis-assessment/statistics",
+      "description": "获取脓毒症评估统计信息"
+    }
+  ],
+  
+  "testCases": [
+    {
+      "name": "基础分页查询",
+      "endpoint": "/api/sepsis-assessment/page",
+      "method": "POST",
+      "request": {
+        "pageNum": 1,
+        "pageSize": 10
+      },
+      "expectedResponse": {
+        "code": 200,
+        "message": "操作成功",
+        "data": {
+          "current": 1,
+          "size": 10,
+          "total": "number",
+          "pages": "number",
+          "records": "array"
+        }
+      }
+    },
+    {
+      "name": "查询高风险患者",
+      "endpoint": "/api/sepsis-assessment/page",
+      "method": "POST",
+      "request": {
+        "pageNum": 1,
+        "pageSize": 10,
+        "isHighRisk": true
+      },
+      "description": "查询qSOFA≥2或SOFA≥2的高风险患者"
+    },
+    {
+      "name": "按qSOFA评分筛选",
+      "endpoint": "/api/sepsis-assessment/page",
+      "method": "POST",
+      "request": {
+        "pageNum": 1,
+        "pageSize": 10,
+        "minQsofaScore": 2
+      },
+      "description": "查询qSOFA≥2分的患者"
+    },
+    {
+      "name": "按SOFA评分筛选",
+      "endpoint": "/api/sepsis-assessment/page",
+      "method": "POST",
+      "request": {
+        "pageNum": 1,
+        "pageSize": 10,
+        "minSofaScore": 6
+      },
+      "description": "查询SOFA≥6分的患者"
+    },
+    {
+      "name": "完整评估患者",
+      "endpoint": "/api/sepsis-assessment/page",
+      "method": "POST",
+      "request": {
+        "pageNum": 1,
+        "pageSize": 10,
+        "hasQsofa": true,
+        "hasSofa": true
+      },
+      "description": "查询同时有qSOFA和SOFA评估的患者"
+    },
+    {
+      "name": "高风险患者列表",
+      "endpoint": "/api/sepsis-assessment/high-risk",
+      "method": "GET",
+      "expectedResponse": {
+        "code": 200,
+        "message": "操作成功",
+        "data": [
+          {
+            "patientId": "number",
+            "patientNumber": "string",
+            "patientName": "string",
+            "qsofaTotalScore": "number",
+            "sofaTotalScore": "number",
+            "sepsisRiskLevel": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "统计信息",
+      "endpoint": "/api/sepsis-assessment/statistics",
+      "method": "GET",
+      "expectedResponse": {
+        "code": 200,
+        "message": "操作成功",
+        "data": {
+          "totalPatients": "number",
+          "qsofaCompleted": "number",
+          "sofaCompleted": "number",
+          "qsofaCompletionRate": "string",
+          "sofaCompletionRate": "string",
+          "highRiskQsofa": "number",
+          "highRiskSofa": "number",
+          "requiresIcu": "number",
+          "riskDistribution": "object"
+        }
+      }
+    }
+  ],
+  
+  "scoringGuide": {
+    "qSOFA": {
+      "description": "快速序贯器官衰竭评分",
+      "totalScore": "0-3",
+      "items": [
+        {
+          "name": "呼吸频率",
+          "criteria": "≥22次/分",
+          "score": 1
+        },
+        {
+          "name": "精神状态",
+          "criteria": "GCS<15",
+          "score": 1
+        },
+        {
+          "name": "收缩压",
+          "criteria": "≤100mmHg",
+          "score": 1
+        }
+      ],
+      "interpretation": {
+        "≥2": "高风险，疑似脓毒症",
+        "<2": "低风险"
+      }
+    },
+    "SOFA": {
+      "description": "序贯器官衰竭评分",
+      "totalScore": "0-24",
+      "systems": [
+        {
+          "name": "呼吸系统",
+          "parameter": "PaO2/FiO2",
+          "scoreRange": "0-4"
+        },
+        {
+          "name": "凝血系统",
+          "parameter": "血小板",
+          "scoreRange": "0-4"
+        },
+        {
+          "name": "肝脏系统",
+          "parameter": "胆红素",
+          "scoreRange": "0-4"
+        },
+        {
+          "name": "心血管系统",
+          "parameter": "血压/血管活性药物",
+          "scoreRange": "0-4"
+        },
+        {
+          "name": "中枢神经系统",
+          "parameter": "GCS评分",
+          "scoreRange": "0-4"
+        },
+        {
+          "name": "肾脏系统",
+          "parameter": "肌酐/尿量",
+          "scoreRange": "0-4"
+        }
+      ],
+      "mortalityRisk": {
+        "0-1": "<10%",
+        "2-3": "10-20%",
+        "4-5": "20-30%",
+        "6-7": "30-45%",
+        "8-9": "45-60%",
+        "10-12": "60-80%",
+        ">12": ">80%"
+      }
+    }
+  },
+  
+  "riskLevels": {
+    "sepsisRiskLevel": ["极高风险", "高风险", "中风险", "低风险", "未评估"],
+    "sepsisScreeningResult": ["阳性（疑似脓毒症）", "阴性（低风险）", "未进行qSOFA评估"],
+    "organDysfunctionAssessment": [
+      "极重度多器官功能障碍",
+      "重度多器官功能障碍",
+      "中度器官功能障碍",
+      "轻度器官功能障碍",
+      "无明显器官功能障碍",
+      "未进行SOFA评估"
+    ]
+  },
+  
+  "treatmentProtocol": {
+    "极高风险": [
+      "立即ICU监护",
+      "1小时内完成脓毒症集束化治疗",
+      "液体复苏30ml/kg",
+      "血培养后立即抗生素",
+      "血管活性药物支持"
+    ],
+    "高风险": [
+      "密切监测",
+      "3小时内完成初始复苏",
+      "血培养和乳酸测定",
+      "早期抗生素治疗"
+    ],
+    "中低风险": [
+      "常规监测",
+      "完善感染指标",
+      "必要时复查评分"
+    ]
+  },
+  
+  "performanceNotes": {
+    "optimizations": [
+      "使用子查询获取最新评估记录",
+      "创建patient_id和created_time联合索引",
+      "限制每页最大记录数为100"
+    ],
+    "expectedResponseTime": {
+      "pageQuery": "< 500ms",
+      "detailQuery": "< 100ms",
+      "highRiskQuery": "< 300ms",
+      "statistics": "< 1000ms"
+    }
+  }
+}

@@ -1,0 +1,137 @@
+server:
+  port: 1129
+  servlet:
+    context-path: /
+  tomcat:
+    threads:
+      max: 200
+      min-spare: 10
+    max-connections: 8192
+    accept-count: 100
+    connection-timeout: 20000
+
+# CORS跨域配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://43.136.87.6:3306/respiratory_infection?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:HXJ#801hxj}
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,wall,slf4j
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: false
+        login-username: admin
+        login-password: admin123
+
+  rabbitmq:
+    host: 43.136.87.6
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: /respiratory
+    # 连接超时时间（毫秒）
+    connection-timeout: 30000
+    # 心跳超时时间（秒）
+    requested-heartbeat: 60
+    listener:
+      simple:
+        acknowledge-mode: manual
+        # 消费者数量 - 修改为1避免重复消费
+        concurrency: 1
+        # 最大消费者数量 - 修改为1避免重复消费
+        max-concurrency: 1
+        # 预取消息数量 - 修改为1避免重复消费
+        prefetch: 1
+        # 消息转换器
+        default-requeue-rejected: false
+        # 消费者超时配置（毫秒）- 设置为2小时
+        consumer-timeout: 7200000
+        # 消费者空闲超时（毫秒）- 设置为3小时
+        idle-event-interval: 10800000
+        # 失败后的恢复间隔
+        recovery-interval: 5000
+        # 缺失队列是否致命错误（设置为false可以避免启动失败）
+        missing-queues-fatal: false
+        retry:
+          enabled: true
+          initial-interval: 1000
+          max-attempts: 3
+          max-interval: 10000
+          multiplier: 2.0
+
+  # 文件上传配置
+  servlet:
+    multipart:
+      max-file-size: ${MAX_FILE_SIZE:10MB}
+      max-request-size: ${MAX_REQUEST_SIZE:10MB}
+
+  # Jackson配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+# MyBatis-Plus配置
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  type-aliases-package: com.hxj.common.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    jdbc-type-for-null: 'null'
+  global-config:
+    db-config:
+      id-type: ASSIGN_ID
+      logic-delete-field: isDeleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# 日志配置
+logging:
+  level:
+    root: ${LOGGING_LEVEL_ROOT:INFO}
+    com.hxj: ${LOGGING_LEVEL_COM_HXJ:INFO}
+    org.springframework.web: INFO
+    org.mybatis: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+  file:
+    name: /app/logs/respiratory-infection.log
+  logback:
+    rollingpolicy:
+      max-file-size: 100MB
+      max-history: 30
+      total-size-cap: 1GB
+
+# 管理端点配置（简化版本，兼容性更好）
+management:
+  endpoint:
+    health:
+      enabled: true
+
+# JWT配置
+jwt:
+  secret: ${JWT_SECRET:E0HOlOarV0fMH3qpn5rLpqYC0OJViPmwurpJUBW8VW/URYPDWrvqyBjAwnhhzoRENEfCfFmmgkjEqj5lJhOO3w==}
+  expiration: 86400000  # 24小时

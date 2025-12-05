@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxj.common.mapper.RespiratorySyndromeAssessmentMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.hxj.common.entity.RespiratorySyndromeAssessment">
+        <id column="syndrome_id" property="syndromeId" />
+        <!-- 症状指标 -->
+        <result column="has_dyspnea" property="hasDyspnea" />
+        <result column="dyspnea_level" property="dyspneaLevel" />
+        <result column="has_consciousness_disorder" property="hasConsciousnessDisorder" />
+        <result column="consciousness_level" property="consciousnessLevel" />
+        <!-- 体征指标 -->
+        <result column="temperature" property="temperature" />
+        <result column="temperature_level" property="temperatureLevel" />
+        <result column="heart_rate" property="heartRate" />
+        <result column="is_tachycardia" property="isTachycardia" />
+        <result column="systolic_bp" property="systolicBp" />
+        <result column="diastolic_bp" property="diastolicBp" />
+        <result column="is_hypotension" property="isHypotension" />
+        <result column="oxygen_saturation" property="oxygenSaturation" />
+        <result column="is_hypoxemia" property="isHypoxemia" />
+        <!-- 检验指标 -->
+        <result column="arterial_ph" property="arterialPh" />
+        <result column="is_acidosis" property="isAcidosis" />
+        <result column="pao2" property="pao2" />
+        <result column="is_hypoxemia_pao2" property="isHypoxemiaPao2" />
+        <result column="pao2_fio2_ratio" property="pao2Fio2Ratio" />
+        <result column="is_oxygenation_disorder" property="isOxygenationDisorder" />
+        <result column="paco2" property="paco2" />
+        <result column="is_hypercapnia" property="isHypercapnia" />
+        <result column="platelet_count" property="plateletCount" />
+        <result column="is_thrombocytopenia" property="isThrombocytopenia" />
+        <result column="blood_urea_nitrogen" property="bloodUreaNitrogen" />
+        <result column="is_bun_elevated" property="isBunElevated" />
+        <result column="creatinine" property="creatinine" />
+        <result column="is_creatinine_elevated" property="isCreatinineElevated" />
+        <result column="total_bilirubin" property="totalBilirubin" />
+        <result column="is_bilirubin_elevated" property="isBilirubinElevated" />
+        <!-- 检查指标 -->
+        <result column="has_chest_ct" property="hasChestCt" />
+        <result column="ct_shows_infection" property="ctShowsInfection" />
+        <result column="ct_multi_lobe_involved" property="ctMultiLobeInvolved" />
+        <result column="ct_findings" property="ctFindings" />
+        <!-- 治疗指标 -->
+        <result column="uses_dopamine" property="usesDopamine" />
+        <result column="uses_dobutamine" property="usesDobutamine" />
+        <result column="uses_norepinephrine" property="usesNorepinephrine" />
+        <result column="uses_special_antibiotics" property="usesSpecialAntibiotics" />
+        <result column="antibiotics_list" property="antibioticsList" />
+        <result column="uses_ventilator" property="usesVentilator" />
+        <result column="ventilator_mode" property="ventilatorMode" />
+        <!-- 治疗场所 -->
+        <result column="in_icu" property="inIcu" />
+        <result column="icu_admission_date" property="icuAdmissionDate" />
+        <result column="icu_discharge_date" property="icuDischargeDate" />
+        <!-- 严重程度评估 -->
+        <result column="severity_score" property="severityScore" />
+        <result column="severity_level" property="severityLevel" />
+        <result column="risk_factors_count" property="riskFactorsCount" />
+        <result column="assessment_summary" property="assessmentSummary" />
+        <!-- 评估信息 -->
+        <result column="assessment_time" property="assessmentTime" />
+        <result column="assessment_method" property="assessmentMethod" />
+        <result column="assessor" property="assessor" />
+        <result column="assessment_notes" property="assessmentNotes" />
+        <!-- 通用字段 -->
+        <result column="created_at" property="createdAt" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        syndrome_id, has_dyspnea, dyspnea_level, has_consciousness_disorder, consciousness_level,
+        temperature, temperature_level, heart_rate, is_tachycardia, systolic_bp, diastolic_bp, 
+        is_hypotension, oxygen_saturation, is_hypoxemia,
+        arterial_ph, is_acidosis, pao2, is_hypoxemia_pao2, pao2_fio2_ratio, is_oxygenation_disorder,
+        paco2, is_hypercapnia, platelet_count, is_thrombocytopenia,
+        blood_urea_nitrogen, is_bun_elevated, creatinine, is_creatinine_elevated,
+        total_bilirubin, is_bilirubin_elevated,
+        has_chest_ct, ct_shows_infection, ct_multi_lobe_involved, ct_findings,
+        uses_dopamine, uses_dobutamine, uses_norepinephrine, uses_special_antibiotics,
+        antibiotics_list, uses_ventilator, ventilator_mode,
+        in_icu, icu_admission_date, icu_discharge_date,
+        severity_score, severity_level, risk_factors_count, assessment_summary,
+        assessment_time, assessment_method, assessor, assessment_notes,
+        created_at, created_by, updated_at, updated_by, is_deleted
+    </sql>
+
+    <!-- 根据症候群ID查询评估结果（包括已删除的记录，用于更新） -->
+    <select id="selectBySyndromeId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM respiratory_syndrome_assessment
+        WHERE syndrome_id = #{syndromeId}
+    </select>
+
+    <!-- 根据症候群ID列表查询评估结果 -->
+    <select id="selectBySyndromeIds" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM respiratory_syndrome_assessment
+        WHERE syndrome_id IN
+        <foreach collection="syndromeIds" item="syndromeId" open="(" separator="," close=")">
+            #{syndromeId}
+        </foreach>
+          AND is_deleted = 0
+        ORDER BY assessment_time DESC
+    </select>
+
+    <!-- 根据严重程度等级统计数量 -->
+    <select id="countBySeverityLevel" resultType="int">
+        SELECT COUNT(*)
+        FROM respiratory_syndrome_assessment
+        WHERE severity_level = #{severityLevel}
+          AND is_deleted = 0
+    </select>
+
+    <!-- 根据日期范围查询评估结果 -->
+    <select id="selectByDateRange" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM respiratory_syndrome_assessment
+        WHERE assessment_time BETWEEN #{startDate} AND #{endDate}
+          AND is_deleted = 0
+        ORDER BY assessment_time DESC
+    </select>
+    
+    <!-- 分页查询结果映射 -->
+    <resultMap id="PageResultMap" type="com.hxj.common.vo.RespiratorySyndromePageVO" extends="BaseResultMap">
+        <result column="patient_number" property="patientNumber" />
+        <result column="gender" property="gender" />
+        <result column="age" property="age" />
+        <result column="relation_id" property="relationId" />
+        <result column="patient_id" property="patientId" />
+        <result column="relation_status" property="relationStatus" />
+        <result column="diagnosis" property="diagnosis" />
+    </resultMap>
+    
+    <!-- 分页查询呼吸道症候群评估结果（三表联查） -->
+    <select id="selectRespiratorySyndromePage" resultMap="PageResultMap">
+        SELECT 
+            rsa.*,
+            p.patient_number,
+            p.gender,
+            p.age,
+            spr.relation_id,
+            spr.patient_id,
+            spr.relation_status,
+            spr.diagnosis
+        FROM respiratory_syndrome_assessment rsa
+        LEFT JOIN syndrome_patient_relation spr ON rsa.syndrome_id = spr.syndrome_id AND spr.is_deleted = 0
+        LEFT JOIN patient_info p ON spr.patient_id = p.patient_id AND p.is_deleted = 0
+        WHERE rsa.is_deleted = 0
+        <if test="query != null">
+            <!-- 患者信息条件 -->
+            <if test="query.patientNumber != null and query.patientNumber != ''">
+                AND p.patient_number = #{query.patientNumber}
+            </if>
+            <if test="query.gender != null and query.gender != ''">
+                AND p.gender = #{query.gender}
+            </if>
+            <if test="query.minAge != null">
+                AND p.age &gt;= #{query.minAge}
+            </if>
+            <if test="query.maxAge != null">
+                AND p.age &lt;= #{query.maxAge}
+            </if>
+            
+            <!-- 评估结果条件 -->
+            <if test="query.severityLevel != null and query.severityLevel != ''">
+                AND rsa.severity_level = #{query.severityLevel}
+            </if>
+            <if test="query.minSeverityScore != null">
+                AND rsa.severity_score &gt;= #{query.minSeverityScore}
+            </if>
+            <if test="query.maxSeverityScore != null">
+                AND rsa.severity_score &lt;= #{query.maxSeverityScore}
+            </if>
+            <if test="query.minRiskFactorsCount != null">
+                AND rsa.risk_factors_count &gt;= #{query.minRiskFactorsCount}
+            </if>
+            <if test="query.maxRiskFactorsCount != null">
+                AND rsa.risk_factors_count &lt;= #{query.maxRiskFactorsCount}
+            </if>
+            
+            <!-- 症状指标条件 -->
+            <if test="query.hasDyspnea != null">
+                AND rsa.has_dyspnea = #{query.hasDyspnea}
+            </if>
+            <if test="query.hasConsciousnessDisorder != null">
+                AND rsa.has_consciousness_disorder = #{query.hasConsciousnessDisorder}
+            </if>
+            
+            <!-- 体征指标条件 -->
+            <if test="query.isTachycardia != null">
+                AND rsa.is_tachycardia = #{query.isTachycardia}
+            </if>
+            <if test="query.isHypotension != null">
+                AND rsa.is_hypotension = #{query.isHypotension}
+            </if>
+            <if test="query.isHypoxemia != null">
+                AND rsa.is_hypoxemia = #{query.isHypoxemia}
+            </if>
+            
+            <!-- 检验指标条件 -->
+            <if test="query.isAcidosis != null">
+                AND rsa.is_acidosis = #{query.isAcidosis}
+            </if>
+            <if test="query.isOxygenationDisorder != null">
+                AND rsa.is_oxygenation_disorder = #{query.isOxygenationDisorder}
+            </if>
+            
+            <!-- 检查指标条件 -->
+            <if test="query.ctShowsInfection != null">
+                AND rsa.ct_shows_infection = #{query.ctShowsInfection}
+            </if>
+            <if test="query.ctMultiLobeInvolved != null">
+                AND rsa.ct_multi_lobe_involved = #{query.ctMultiLobeInvolved}
+            </if>
+            
+            <!-- 治疗指标条件 -->
+            <if test="query.usesVentilator != null">
+                AND rsa.uses_ventilator = #{query.usesVentilator}
+            </if>
+            <if test="query.inIcu != null">
+                AND rsa.in_icu = #{query.inIcu}
+            </if>
+            
+            <!-- 其他条件 -->
+            <if test="query.assessor != null and query.assessor != ''">
+                AND rsa.assessor = #{query.assessor}
+            </if>
+        </if>
+        ORDER BY rsa.created_at DESC
+    </select>
+    
+    <!-- 根据syndrome_id查询评估详情（三表联查） -->
+    <select id="selectSyndromeDetailById" resultMap="PageResultMap">
+        SELECT 
+            rsa.*,
+            p.patient_number,
+            p.gender,
+            p.age,
+            spr.relation_id,
+            spr.patient_id,
+            spr.relation_status,
+            spr.diagnosis
+        FROM respiratory_syndrome_assessment rsa
+        LEFT JOIN syndrome_patient_relation spr ON rsa.syndrome_id = spr.syndrome_id AND spr.is_deleted = 0
+        LEFT JOIN patient_info p ON spr.patient_id = p.patient_id AND p.is_deleted = 0
+        WHERE rsa.is_deleted = 0
+          AND rsa.syndrome_id = #{syndromeId}
+    </select>
+
+    <!-- 批量插入评估结果 -->
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO respiratory_syndrome_assessment (
+            has_dyspnea, dyspnea_level, has_consciousness_disorder, consciousness_level,
+            temperature, temperature_level, heart_rate, is_tachycardia,
+            systolic_bp, diastolic_bp, is_hypotension, oxygen_saturation, is_hypoxemia,
+            arterial_ph, is_acidosis, pao2, is_hypoxemia_pao2, pao2_fio2_ratio, is_oxygenation_disorder,
+            paco2, is_hypercapnia, platelet_count, is_thrombocytopenia,
+            blood_urea_nitrogen, is_bun_elevated, creatinine, is_creatinine_elevated,
+            total_bilirubin, is_bilirubin_elevated,
+            has_chest_ct, ct_shows_infection, ct_multi_lobe_involved, ct_findings,
+            uses_dopamine, uses_dobutamine, uses_norepinephrine, uses_special_antibiotics,
+            antibiotics_list, uses_ventilator, ventilator_mode,
+            in_icu, icu_admission_date, icu_discharge_date,
+            severity_score, severity_level, risk_factors_count, assessment_summary,
+            assessment_time, assessment_method, assessor, assessment_notes,
+            created_at, created_by, updated_at, updated_by, is_deleted
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.hasDyspnea}, #{item.dyspneaLevel}, #{item.hasConsciousnessDisorder}, #{item.consciousnessLevel},
+                #{item.temperature}, #{item.temperatureLevel}, #{item.heartRate}, #{item.isTachycardia},
+                #{item.systolicBp}, #{item.diastolicBp}, #{item.isHypotension}, #{item.oxygenSaturation}, #{item.isHypoxemia},
+                #{item.arterialPh}, #{item.isAcidosis}, #{item.pao2}, #{item.isHypoxemiaPao2}, #{item.pao2Fio2Ratio}, 
+                #{item.isOxygenationDisorder}, #{item.paco2}, #{item.isHypercapnia}, #{item.plateletCount}, #{item.isThrombocytopenia},
+                #{item.bloodUreaNitrogen}, #{item.isBunElevated}, #{item.creatinine}, #{item.isCreatinineElevated},
+                #{item.totalBilirubin}, #{item.isBilirubinElevated},
+                #{item.hasChestCt}, #{item.ctShowsInfection}, #{item.ctMultiLobeInvolved}, #{item.ctFindings},
+                #{item.usesDopamine}, #{item.usesDobutamine}, #{item.usesNorepinephrine}, #{item.usesSpecialAntibiotics},
+                #{item.antibioticsList}, #{item.usesVentilator}, #{item.ventilatorMode},
+                #{item.inIcu}, #{item.icuAdmissionDate}, #{item.icuDischargeDate},
+                #{item.severityScore}, #{item.severityLevel}, #{item.riskFactorsCount}, #{item.assessmentSummary},
+                #{item.assessmentTime}, #{item.assessmentMethod}, #{item.assessor}, #{item.assessmentNotes},
+                #{item.createdAt}, #{item.createdBy}, #{item.updatedAt}, #{item.updatedBy}, #{item.isDeleted}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

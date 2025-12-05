@@ -1,0 +1,464 @@
+2025-11-29 17:19:49.052 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 17:19:49.103 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 48248 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 17:19:49.104 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 17:19:49.104 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 17:19:49.725 [main] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.hxj.web]' package. Please check your configuration.
+2025-11-29 17:19:50.012 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-11-29 17:19:50.032 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-11-29 17:19:50.033 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 17:19:50.034 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 17:19:50.084 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 17:19:50.084 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 942 ms
+2025-11-29 17:19:50.127 [main] DEBUG com.hxj.jwt.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-29 17:19:50.145 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authController': Unsatisfied dependency expressed through field 'userService': Error creating bean with name 'userServiceImpl': Unsatisfied dependency expressed through field 'userMapper': No qualifying bean of type 'com.hxj.common.mapper.UserMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2025-11-29 17:19:50.147 [main] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2025-11-29 17:19:50.168 [main] INFO  o.s.b.a.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-11-29 17:19:50.182 [main] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field userMapper in com.hxj.service.impl.UserServiceImpl required a bean of type 'com.hxj.common.mapper.UserMapper' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.hxj.common.mapper.UserMapper' in your configuration.
+
+2025-11-29 17:22:39.312 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 17:22:39.354 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 43644 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 17:22:39.354 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 17:22:39.356 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 17:22:40.124 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-11-29 17:22:40.132 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-11-29 17:22:40.134 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 17:22:40.134 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 17:22:40.191 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 17:22:40.191 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 798 ms
+2025-11-29 17:22:40.224 [main] DEBUG com.hxj.jwt.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-29 17:22:40.504 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2025-11-29 17:22:40.801 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-11-29 17:22:40.826 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-11-29 17:22:40.832 [main] INFO  com.hxj.web.WebApplication - Started WebApplication in 1.958 seconds (process running for 2.366)
+2025-11-29 17:25:52.117 [SpringApplicationShutdownHook] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-29 17:25:52.125 [tomcat-shutdown] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-11-29 17:25:52.129 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-0} closing ...
+2025-11-29 17:27:28.379 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 17:27:28.420 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 46344 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 17:27:28.421 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 17:27:28.421 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 17:27:29.251 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 1129 (http)
+2025-11-29 17:27:29.260 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:27:29.261 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 17:27:29.261 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 17:27:29.321 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 17:27:29.321 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 867 ms
+2025-11-29 17:27:29.357 [main] DEBUG com.hxj.jwt.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-29 17:27:29.624 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2025-11-29 17:27:29.917 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:27:29.929 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 1129 (http) with context path '/'
+2025-11-29 17:27:29.934 [main] INFO  com.hxj.web.WebApplication - Started WebApplication in 1.984 seconds (process running for 2.392)
+2025-11-29 17:27:32.696 [SpringApplicationShutdownHook] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-29 17:27:32.703 [tomcat-shutdown] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-11-29 17:27:32.705 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-0} closing ...
+2025-11-29 17:27:41.453 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 17:27:41.496 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 28592 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 17:27:41.497 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 17:27:41.497 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 17:27:42.289 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 1129 (http)
+2025-11-29 17:27:42.298 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:27:42.299 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 17:27:42.299 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 17:27:42.349 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 17:27:42.349 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 818 ms
+2025-11-29 17:27:42.386 [main] DEBUG com.hxj.jwt.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-29 17:27:42.644 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2025-11-29 17:27:42.944 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:27:42.956 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 1129 (http) with context path '/'
+2025-11-29 17:27:42.961 [main] INFO  com.hxj.web.WebApplication - Started WebApplication in 1.903 seconds (process running for 2.293)
+2025-11-29 17:29:12.309 [http-nio-1129-exec-3] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-29 17:29:12.309 [http-nio-1129-exec-3] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-29 17:29:12.310 [http-nio-1129-exec-3] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-11-29 17:29:12.479 [http-nio-1129-exec-3] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2025-11-29 17:29:12.691 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 17:29:12.710 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 17:29:12.730 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 17:33:28.339 [SpringApplicationShutdownHook] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-29 17:33:28.348 [tomcat-shutdown] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-11-29 17:33:28.353 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2025-11-29 17:33:28.357 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2025-11-29 17:33:33.248 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 17:33:33.292 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 59564 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 17:33:33.292 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 17:33:33.293 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 17:33:34.151 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 1129 (http)
+2025-11-29 17:33:34.160 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:33:34.161 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 17:33:34.161 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 17:33:34.203 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 17:33:34.204 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 868 ms
+2025-11-29 17:33:34.240 [main] DEBUG com.hxj.jwt.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-29 17:33:34.534 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2025-11-29 17:33:34.863 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:33:34.875 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 1129 (http) with context path '/'
+2025-11-29 17:33:34.882 [main] INFO  com.hxj.web.WebApplication - Started WebApplication in 2.083 seconds (process running for 2.526)
+2025-11-29 17:33:41.337 [http-nio-1129-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-29 17:33:41.338 [http-nio-1129-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-29 17:33:41.338 [http-nio-1129-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2025-11-29 17:33:41.497 [http-nio-1129-exec-1] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2025-11-29 17:33:41.687 [http-nio-1129-exec-1] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 17:33:41.705 [http-nio-1129-exec-1] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 17:33:41.725 [http-nio-1129-exec-1] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 17:33:58.063 [SpringApplicationShutdownHook] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-29 17:33:58.070 [tomcat-shutdown] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-11-29 17:33:58.074 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2025-11-29 17:33:58.077 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2025-11-29 17:34:53.409 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 17:34:53.452 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 47620 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 17:34:53.453 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 17:34:53.453 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 17:34:54.449 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 1129 (http)
+2025-11-29 17:34:54.461 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:34:54.462 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 17:34:54.462 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 17:34:54.511 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 17:34:54.511 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1017 ms
+2025-11-29 17:34:54.558 [main] DEBUG com.hxj.jwt.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-29 17:34:54.888 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2025-11-29 17:34:55.242 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:34:55.257 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 1129 (http) with context path '/'
+2025-11-29 17:34:55.263 [main] INFO  com.hxj.web.WebApplication - Started WebApplication in 2.291 seconds (process running for 3.101)
+2025-11-29 17:34:58.564 [http-nio-1129-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-29 17:34:58.564 [http-nio-1129-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-29 17:34:58.565 [http-nio-1129-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-11-29 17:35:06.524 [http-nio-1129-exec-2] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2025-11-29 17:35:06.778 [http-nio-1129-exec-2] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 17:35:06.926 [http-nio-1129-exec-2] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 17:35:07.077 [http-nio-1129-exec-2] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 17:37:02.740 [SpringApplicationShutdownHook] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-29 17:37:02.862 [tomcat-shutdown] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-11-29 17:37:02.865 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2025-11-29 17:37:02.868 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2025-11-29 17:42:20.238 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 17:42:20.278 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 51800 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 17:42:20.278 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 17:42:20.278 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 17:42:21.102 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 1129 (http)
+2025-11-29 17:42:21.111 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:42:21.112 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 17:42:21.112 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 17:42:21.147 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 17:42:21.147 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 826 ms
+2025-11-29 17:42:21.181 [main] DEBUG com.hxj.jwt.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-29 17:42:21.425 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2025-11-29 17:42:21.725 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:42:21.740 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 1129 (http) with context path '/'
+2025-11-29 17:42:21.746 [main] INFO  com.hxj.web.WebApplication - Started WebApplication in 1.886 seconds (process running for 2.271)
+2025-11-29 17:42:24.431 [http-nio-1129-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-29 17:42:24.431 [http-nio-1129-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-29 17:42:24.432 [http-nio-1129-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-11-29 17:42:24.630 [http-nio-1129-exec-2] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2025-11-29 17:42:24.869 [http-nio-1129-exec-2] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 17:42:24.891 [http-nio-1129-exec-2] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 17:42:24.912 [http-nio-1129-exec-2] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 17:43:34.541 [http-nio-1129-exec-5] WARN  com.alibaba.druid.pool.DruidAbstractDataSource - discard long time none received connection. , jdbcUrl : jdbc:mysql://localhost:3306/respiratory_infection?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8, version : 1.2.5, lastPacketReceivedIdleMillis : 69630
+2025-11-29 17:43:34.562 [http-nio-1129-exec-5] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 17:43:34.563 [http-nio-1129-exec-5] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 17:43:34.575 [http-nio-1129-exec-5] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 17:43:34.575 [http-nio-1129-exec-5] WARN  o.s.security.crypto.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt
+2025-11-29 17:48:18.220 [SpringApplicationShutdownHook] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-29 17:48:18.229 [tomcat-shutdown] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-11-29 17:48:18.234 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2025-11-29 17:48:18.237 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2025-11-29 17:48:20.301 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 17:48:20.340 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 41016 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 17:48:20.340 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 17:48:20.341 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 17:48:21.218 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 1129 (http)
+2025-11-29 17:48:21.228 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:48:21.229 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 17:48:21.229 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 17:48:21.270 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 17:48:21.270 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 891 ms
+2025-11-29 17:48:21.308 [main] DEBUG com.hxj.jwt.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-29 17:48:21.574 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2025-11-29 17:48:21.872 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:48:21.885 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 1129 (http) with context path '/'
+2025-11-29 17:48:21.890 [main] INFO  com.hxj.web.WebApplication - Started WebApplication in 1.988 seconds (process running for 2.408)
+2025-11-29 17:48:35.442 [http-nio-1129-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-29 17:48:35.442 [http-nio-1129-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-29 17:48:35.443 [http-nio-1129-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-11-29 17:48:35.599 [http-nio-1129-exec-2] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2025-11-29 17:48:35.781 [http-nio-1129-exec-2] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 17:48:35.798 [http-nio-1129-exec-2] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 17:48:35.815 [http-nio-1129-exec-2] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 17:48:35.816 [http-nio-1129-exec-2] WARN  o.s.security.crypto.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt
+2025-11-29 17:51:07.263 [SpringApplicationShutdownHook] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-29 17:51:07.271 [tomcat-shutdown] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-11-29 17:51:07.274 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2025-11-29 17:51:07.277 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2025-11-29 17:51:16.122 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 17:51:16.165 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 57960 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 17:51:16.166 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 17:51:16.166 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 17:51:16.966 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 1129 (http)
+2025-11-29 17:51:16.975 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:51:16.976 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 17:51:16.976 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 17:51:17.023 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 17:51:17.023 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 821 ms
+2025-11-29 17:51:17.058 [main] DEBUG com.hxj.jwt.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-29 17:51:17.337 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2025-11-29 17:51:17.720 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:51:17.736 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 1129 (http) with context path '/'
+2025-11-29 17:51:17.741 [main] INFO  com.hxj.web.WebApplication - Started WebApplication in 2.034 seconds (process running for 2.508)
+2025-11-29 17:51:23.328 [http-nio-1129-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-29 17:51:23.328 [http-nio-1129-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-29 17:51:23.328 [http-nio-1129-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2025-11-29 17:51:23.593 [http-nio-1129-exec-2] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2025-11-29 17:51:23.898 [http-nio-1129-exec-2] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 17:51:23.928 [http-nio-1129-exec-2] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 17:51:23.953 [http-nio-1129-exec-2] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 17:53:44.590 [SpringApplicationShutdownHook] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-29 17:53:44.596 [tomcat-shutdown] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-11-29 17:53:44.600 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2025-11-29 17:53:44.602 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2025-11-29 17:53:47.428 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 17:53:47.470 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 5596 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 17:53:47.470 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 17:53:47.471 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 17:53:48.237 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 1129 (http)
+2025-11-29 17:53:48.256 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:53:48.257 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 17:53:48.257 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 17:53:48.290 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 17:53:48.291 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 786 ms
+2025-11-29 17:53:48.323 [main] DEBUG com.hxj.jwt.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-29 17:53:48.579 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2025-11-29 17:53:48.874 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:53:48.886 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 1129 (http) with context path '/'
+2025-11-29 17:53:48.890 [main] INFO  com.hxj.web.WebApplication - Started WebApplication in 1.836 seconds (process running for 2.214)
+2025-11-29 17:53:52.123 [http-nio-1129-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-29 17:53:52.123 [http-nio-1129-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-29 17:53:52.124 [http-nio-1129-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-11-29 17:53:52.286 [http-nio-1129-exec-1] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2025-11-29 17:53:52.469 [http-nio-1129-exec-1] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 17:53:52.487 [http-nio-1129-exec-1] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: user(String)
+2025-11-29 17:53:52.502 [http-nio-1129-exec-1] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 0
+2025-11-29 17:53:52.578 [http-nio-1129-exec-1] DEBUG com.hxj.common.mapper.UserMapper.insert - ==>  Preparing: INSERT INTO tb_user ( username, password, role, created_at, created_by, updated_at, updated_by, is_deleted, remark ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ? )
+2025-11-29 17:53:52.582 [http-nio-1129-exec-1] DEBUG com.hxj.common.mapper.UserMapper.insert - ==> Parameters: user(String), $2a$10$v16ip3lO0AInNW50z.ga4eaU8pWPhol8buc5SXe2bmCZGWPR9cJeu(String), USER(String), 2025-11-29T17:53:52.574550800(LocalDateTime), SYSTEM(String), 2025-11-29T17:53:52.574550800(LocalDateTime), SYSTEM(String), 0(Integer), 备注(String)
+2025-11-29 17:53:52.598 [http-nio-1129-exec-1] DEBUG com.hxj.common.mapper.UserMapper.insert - <==    Updates: 1
+2025-11-29 17:54:16.774 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 17:54:16.775 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: user(String)
+2025-11-29 17:54:16.785 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 17:55:23.715 [SpringApplicationShutdownHook] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-29 17:55:23.721 [tomcat-shutdown] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-11-29 17:55:23.724 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2025-11-29 17:55:23.727 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2025-11-29 17:55:27.479 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 17:55:27.527 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 43096 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 17:55:27.527 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 17:55:27.527 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 17:55:28.296 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 1129 (http)
+2025-11-29 17:55:28.305 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:55:28.306 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 17:55:28.306 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 17:55:28.351 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 17:55:28.352 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 780 ms
+2025-11-29 17:55:28.386 [main] DEBUG com.hxj.jwt.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-29 17:55:28.636 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2025-11-29 17:55:28.929 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-1129"]
+2025-11-29 17:55:28.941 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 1129 (http) with context path '/'
+2025-11-29 17:55:28.946 [main] INFO  com.hxj.web.WebApplication - Started WebApplication in 1.849 seconds (process running for 2.245)
+2025-11-29 17:55:31.488 [http-nio-1129-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-29 17:55:31.488 [http-nio-1129-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-29 17:55:31.489 [http-nio-1129-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2025-11-29 17:55:31.642 [http-nio-1129-exec-2] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2025-11-29 17:55:31.875 [http-nio-1129-exec-2] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 17:55:31.893 [http-nio-1129-exec-2] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: user(String)
+2025-11-29 17:55:31.912 [http-nio-1129-exec-2] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 18:00:51.577 [SpringApplicationShutdownHook] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-29 18:00:51.584 [tomcat-shutdown] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-11-29 18:00:51.587 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2025-11-29 18:00:51.590 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2025-11-29 18:12:30.615 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 18:12:30.653 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 52908 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 18:12:30.653 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 18:12:30.654 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 18:12:31.499 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 1129 (http)
+2025-11-29 18:12:31.508 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-1129"]
+2025-11-29 18:12:31.509 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 18:12:31.509 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 18:12:31.544 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 18:12:31.544 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 856 ms
+2025-11-29 18:12:31.797 [main] ERROR o.s.boot.web.embedded.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'jwtAuthenticationFilter': Unsatisfied dependency expressed through field 'userDetailsService': Error creating bean with name 'customUserDetailsService': Unsatisfied dependency expressed through field 'userService': Error creating bean with name 'userServiceImpl': Unsatisfied dependency expressed through field 'passwordEncoder': Error creating bean with name 'jwtConfig': Unsatisfied dependency expressed through field 'jwtAuthenticationFilter': Error creating bean with name 'jwtAuthenticationFilter': Requested bean is currently in creation: Is there an unresolvable circular reference or an asynchronous initialization dependency?
+2025-11-29 18:12:31.817 [main] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2025-11-29 18:12:31.829 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+2025-11-29 18:12:31.829 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-0} closing ...
+2025-11-29 18:12:31.834 [main] INFO  o.s.b.a.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-11-29 18:12:31.846 [main] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌─────┐
+|  jwtAuthenticationFilter (field private org.springframework.security.core.userdetails.UserDetailsService com.hxj.jwt.filter.JwtAuthenticationFilter.userDetailsService)
+↑     ↓
+|  customUserDetailsService (field private com.hxj.service.UserService com.hxj.web.security.CustomUserDetailsService.userService)
+↑     ↓
+|  userServiceImpl (field private org.springframework.security.crypto.password.PasswordEncoder com.hxj.service.impl.UserServiceImpl.passwordEncoder)
+↑     ↓
+|  jwtConfig (field private com.hxj.jwt.filter.JwtAuthenticationFilter com.hxj.jwt.config.JwtConfig.jwtAuthenticationFilter)
+└─────┘
+
+
+Action:
+
+Relying upon circular references is discouraged and they are prohibited by default. Update your application to remove the dependency cycle between beans. As a last resort, it may be possible to break the cycle automatically by setting spring.main.allow-circular-references to true.
+
+2025-11-29 18:14:01.221 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 18:14:01.271 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 55376 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 18:14:01.271 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 18:14:01.272 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 18:14:02.171 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 1129 (http)
+2025-11-29 18:14:02.181 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-1129"]
+2025-11-29 18:14:02.182 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 18:14:02.182 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 18:14:02.221 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 18:14:02.221 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 906 ms
+2025-11-29 18:14:02.259 [main] DEBUG com.hxj.jwt.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-29 18:14:02.496 [main] WARN  org.springframework.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.OncePerRequestFilter.doFilter(jakarta.servlet.ServletRequest,jakarta.servlet.ServletResponse,jakarta.servlet.FilterChain) throws jakarta.servlet.ServletException,java.io.IOException] because it is marked as final, consider using interface-based JDK proxies instead.
+2025-11-29 18:14:02.496 [main] WARN  org.springframework.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.GenericFilterBean.init(jakarta.servlet.FilterConfig) throws jakarta.servlet.ServletException] because it is marked as final, consider using interface-based JDK proxies instead.
+2025-11-29 18:14:02.543 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-11-29 18:14:02.835 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-1129"]
+2025-11-29 18:14:02.846 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 1129 (http) with context path '/'
+2025-11-29 18:14:02.851 [main] INFO  com.hxj.web.WebApplication - Started WebApplication in 2.088 seconds (process running for 2.476)
+2025-11-29 18:14:07.684 [http-nio-1129-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-29 18:14:07.685 [http-nio-1129-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-29 18:14:07.685 [http-nio-1129-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2025-11-29 18:16:37.889 [SpringApplicationShutdownHook] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-29 18:16:37.899 [tomcat-shutdown] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-11-29 18:16:37.903 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-0} closing ...
+2025-11-29 18:36:17.434 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 18:36:17.473 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 52756 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 18:36:17.473 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 18:36:17.475 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 18:36:18.342 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 1129 (http)
+2025-11-29 18:36:18.352 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-1129"]
+2025-11-29 18:36:18.353 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 18:36:18.354 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 18:36:18.402 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 18:36:18.403 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 896 ms
+2025-11-29 18:36:18.443 [main] DEBUG com.hxj.jwt.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-29 18:36:18.679 [main] WARN  org.springframework.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.OncePerRequestFilter.doFilter(jakarta.servlet.ServletRequest,jakarta.servlet.ServletResponse,jakarta.servlet.FilterChain) throws jakarta.servlet.ServletException,java.io.IOException] because it is marked as final, consider using interface-based JDK proxies instead.
+2025-11-29 18:36:18.681 [main] WARN  org.springframework.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.GenericFilterBean.init(jakarta.servlet.FilterConfig) throws jakarta.servlet.ServletException] because it is marked as final, consider using interface-based JDK proxies instead.
+2025-11-29 18:36:18.732 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-11-29 18:36:19.056 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-1129"]
+2025-11-29 18:36:19.066 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 1129 (http) with context path '/'
+2025-11-29 18:36:19.073 [main] INFO  com.hxj.web.WebApplication - Started WebApplication in 2.066 seconds (process running for 2.562)
+2025-11-29 18:36:26.755 [http-nio-1129-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-29 18:36:26.755 [http-nio-1129-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-29 18:36:26.755 [http-nio-1129-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2025-11-29 18:36:31.194 [SpringApplicationShutdownHook] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-29 18:36:31.203 [tomcat-shutdown] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-11-29 18:36:31.208 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-0} closing ...
+2025-11-29 18:37:54.846 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 18:37:54.889 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 23028 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 18:37:54.890 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 18:37:54.890 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 18:37:55.777 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 1129 (http)
+2025-11-29 18:37:55.788 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-1129"]
+2025-11-29 18:37:55.789 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 18:37:55.789 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 18:37:55.841 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 18:37:55.842 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 920 ms
+2025-11-29 18:37:55.886 [main] DEBUG com.hxj.jwt.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-29 18:37:56.142 [main] WARN  org.springframework.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.OncePerRequestFilter.doFilter(jakarta.servlet.ServletRequest,jakarta.servlet.ServletResponse,jakarta.servlet.FilterChain) throws jakarta.servlet.ServletException,java.io.IOException] because it is marked as final, consider using interface-based JDK proxies instead.
+2025-11-29 18:37:56.142 [main] WARN  org.springframework.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.GenericFilterBean.init(jakarta.servlet.FilterConfig) throws jakarta.servlet.ServletException] because it is marked as final, consider using interface-based JDK proxies instead.
+2025-11-29 18:37:56.199 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-11-29 18:37:56.554 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-1129"]
+2025-11-29 18:37:56.568 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 1129 (http) with context path '/'
+2025-11-29 18:37:56.574 [main] INFO  com.hxj.web.WebApplication - Started WebApplication in 2.148 seconds (process running for 2.694)
+2025-11-29 18:38:00.847 [SpringApplicationShutdownHook] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-29 18:38:00.854 [tomcat-shutdown] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-11-29 18:38:00.857 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-0} closing ...
+2025-11-29 18:38:28.778 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2025-11-29 18:38:28.821 [main] INFO  com.hxj.web.WebApplication - Starting WebApplication using Java 21.0.6 with PID 26772 (D:\javaCode\hxj\respiratory_infection\web\target\classes started by Administrator in D:\javaCode\hxj\respiratory_infection)
+2025-11-29 18:38:28.821 [main] DEBUG com.hxj.web.WebApplication - Running with Spring Boot v3.4.5, Spring v6.2.6
+2025-11-29 18:38:28.821 [main] INFO  com.hxj.web.WebApplication - The following 1 profile is active: "dev"
+2025-11-29 18:38:29.656 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 1129 (http)
+2025-11-29 18:38:29.675 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-1129"]
+2025-11-29 18:38:29.676 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 18:38:29.677 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-11-29 18:38:29.719 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 18:38:29.719 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 865 ms
+2025-11-29 18:38:29.762 [main] DEBUG com.hxj.jwt.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-11-29 18:38:30.004 [main] WARN  org.springframework.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.OncePerRequestFilter.doFilter(jakarta.servlet.ServletRequest,jakarta.servlet.ServletResponse,jakarta.servlet.FilterChain) throws jakarta.servlet.ServletException,java.io.IOException] because it is marked as final, consider using interface-based JDK proxies instead.
+2025-11-29 18:38:30.004 [main] WARN  org.springframework.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.GenericFilterBean.init(jakarta.servlet.FilterConfig) throws jakarta.servlet.ServletException] because it is marked as final, consider using interface-based JDK proxies instead.
+2025-11-29 18:38:30.060 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-11-29 18:38:30.396 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-1129"]
+2025-11-29 18:38:30.408 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 1129 (http) with context path '/'
+2025-11-29 18:38:30.413 [main] INFO  com.hxj.web.WebApplication - Started WebApplication in 2.018 seconds (process running for 2.401)
+2025-11-29 18:38:40.101 [http-nio-1129-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-29 18:38:40.102 [http-nio-1129-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-29 18:38:40.103 [http-nio-1129-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-11-29 18:38:40.389 [http-nio-1129-exec-1] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2025-11-29 18:38:40.710 [http-nio-1129-exec-1] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 18:38:40.742 [http-nio-1129-exec-1] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 18:38:40.778 [http-nio-1129-exec-1] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 18:38:54.792 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 18:38:54.793 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 18:38:54.795 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 18:38:54.810 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 18:38:54.810 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 18:38:54.813 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 18:38:54.814 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 18:38:54.814 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 18:38:54.816 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 18:38:54.907 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.update - ==>  Preparing: UPDATE tb_user SET password=?,updated_at=?,updated_by=? WHERE is_deleted=0 AND (username = ?)
+2025-11-29 18:38:54.913 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.update - ==> Parameters: $2a$10$.iCYQW155744l1minQeXHOpUbfYdG7cu25rkpNM3/uBXqV8rQECbq(String), 2025-11-29T18:38:54.904125500(LocalDateTime), admin(String), admin(String)
+2025-11-29 18:38:54.929 [http-nio-1129-exec-3] DEBUG com.hxj.common.mapper.UserMapper.update - <==    Updates: 1
+2025-11-29 18:39:01.622 [http-nio-1129-exec-4] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 18:39:01.622 [http-nio-1129-exec-4] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 18:39:01.623 [http-nio-1129-exec-4] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 18:39:16.590 [http-nio-1129-exec-5] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 18:39:16.590 [http-nio-1129-exec-5] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 18:39:16.594 [http-nio-1129-exec-5] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 18:39:16.602 [http-nio-1129-exec-5] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 18:39:16.603 [http-nio-1129-exec-5] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 18:39:16.607 [http-nio-1129-exec-5] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 18:39:16.608 [http-nio-1129-exec-5] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 18:39:16.608 [http-nio-1129-exec-5] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 18:39:16.610 [http-nio-1129-exec-5] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 18:39:16.695 [http-nio-1129-exec-5] DEBUG com.hxj.common.mapper.UserMapper.update - ==>  Preparing: UPDATE tb_user SET password=?,updated_at=?,updated_by=? WHERE is_deleted=0 AND (username = ?)
+2025-11-29 18:39:16.696 [http-nio-1129-exec-5] DEBUG com.hxj.common.mapper.UserMapper.update - ==> Parameters: $2a$10$B52C9SmsmKrQ0rm.5rWHiuWNvjSRzkklasToPtCW52DXRXbBNnxrK(String), 2025-11-29T18:39:16.694250400(LocalDateTime), admin(String), admin(String)
+2025-11-29 18:39:16.712 [http-nio-1129-exec-5] DEBUG com.hxj.common.mapper.UserMapper.update - <==    Updates: 1
+2025-11-29 18:39:21.400 [http-nio-1129-exec-6] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 18:39:21.401 [http-nio-1129-exec-6] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 18:39:21.403 [http-nio-1129-exec-6] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 18:40:08.778 [http-nio-1129-exec-7] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 18:40:08.778 [http-nio-1129-exec-7] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 18:40:08.779 [http-nio-1129-exec-7] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 18:41:12.288 [http-nio-1129-exec-10] WARN  com.alibaba.druid.pool.DruidAbstractDataSource - discard long time none received connection. , jdbcUrl : jdbc:mysql://localhost:3306/respiratory_infection?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8, version : 1.2.5, lastPacketReceivedIdleMillis : 63505
+2025-11-29 18:41:12.299 [http-nio-1129-exec-10] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==>  Preparing: SELECT user_id,username,password,role,created_at,created_by,updated_at,updated_by,is_deleted,remark FROM tb_user WHERE is_deleted=0 AND (username = ?)
+2025-11-29 18:41:12.299 [http-nio-1129-exec-10] DEBUG com.hxj.common.mapper.UserMapper.selectList - ==> Parameters: admin(String)
+2025-11-29 18:41:12.300 [http-nio-1129-exec-10] DEBUG com.hxj.common.mapper.UserMapper.selectList - <==      Total: 1
+2025-11-29 18:41:20.160 [SpringApplicationShutdownHook] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-29 18:41:20.169 [tomcat-shutdown] INFO  o.s.boot.web.embedded.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-11-29 18:41:20.173 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2025-11-29 18:41:20.176 [SpringApplicationShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
